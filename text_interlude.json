@@ -1,0 +1,129 @@
+
+{
+    "$schema":"http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "properties": {
+        "TextModule": {
+            "type": "object",
+            "properties": {
+                "__type": {
+                    "type": "string"
+                },
+                "value": {
+                    "type": "object",
+                    "properties": {
+                        "ModuleKey": {
+                            "type": "string"
+                        },
+                        "Localization_ModuleName": {
+                            "type": "object",
+                            "properties": {
+                                "TarKey": {
+                                    "type": "string"
+                                },
+                                "InputText": {
+                                    "type": "string"
+                                },
+                                "UseCustomParam": {
+                                    "type": "boolean"
+                                },
+                                "CustomParams": {
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "TarKey",
+                                "InputText",
+                                "UseCustomParam",
+                                "CustomParams"
+                            ]
+                        },
+                        "IsLock": {
+                            "type": "boolean"
+                        },
+                        "StartInterludeInfo": {
+                            "type": "object",
+                            "properties": {
+                                "TarKey": {
+                                    "type": "string"
+                                },
+                                "InputText": {
+                                    "type": "string"
+                                },
+                                "UseCustomParam": {
+                                    "type": "boolean"
+                                },
+                                "CustomParams": {
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "TarKey",
+                                "InputText",
+                                "UseCustomParam",
+                                "CustomParams"
+                            ]
+                        },
+                        "BGM": {
+                            "type": "object",
+                            "properties": {
+                                "AudioRes": {
+                                    "type": "string"
+                                },
+                                "Volume": {
+                                    "type": "number"
+                                },
+                                "FadeTime": {
+                                    "type": "number"
+                                }
+                            },
+                            "required": [
+                                "AudioRes",
+                                "Volume",
+                                "FadeTime"
+                            ]
+                        },
+                        "NoProfNameList": {
+                            "type": "array"
+                        },
+                        "LockCheckList": {
+                            "type": "array"
+                        },
+                        "Config": {
+                            "type": "object",
+                            "properties": {
+                                "All": {
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "All"
+                            ]
+                        },
+                        "InterludeCoverPath": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "ModuleKey",
+                        "Localization_ModuleName",
+                        "IsLock",
+                        "StartInterludeInfo",
+                        "BGM",
+                        "NoProfNameList",
+                        "LockCheckList",
+                        "Config",
+                        "InterludeCoverPath"
+                    ]
+                }
+            },
+            "required": [
+                "__type",
+                "value"
+            ]
+        }
+    },
+    "required": [
+        "TextModule"
+    ]
+}
