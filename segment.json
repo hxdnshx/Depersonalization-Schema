@@ -265,7 +265,6 @@
             "properties": {
                 "__type": {
                     "type": "string",
-                    "default": "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
                     "description": "对应的具体类型，不同的类型包含不同的参数，以及不同的功能",
                     "examples": [
                         "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
@@ -279,7 +278,7 @@
                     "description": "内部用于标记同一个对象的标记，一般而言同一个文本可以设为相同值。"
                 }
             },
-            "allof": [
+            "anyOf": [
                 {
                     "if": {
                         "properties": { "__type": { "const": "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp" } }
@@ -299,23 +298,25 @@
                     },
                     "then":
                     {
-                        "SetMode": {
-                            "type": "integer",
-                            "default": 0,
-                            "description": "设置为显示或是消失",
-                            "title": "The SetMode Schema",
-                            "examples": [
-                                1, 0
-                            ]
-                        },
-                        "SpritePath": {
-                            "type": "string",
-                            "default": "",
-                            "description": "设置背景图片的路径",
-                            "title": "The SpritePath Schema",
-                            "examples": [
-                                "UI/Textures/Icon/Interlude/YYSW/yysw_liushengji"
-                            ]
+                        "properties": {
+                            "SetMode": {
+                                "type": "integer",
+                                "default": 0,
+                                "description": "设置为显示或是消失",
+                                "title": "The SetMode Schema",
+                                "examples": [
+                                    1, 0
+                                ]
+                            },
+                            "SpritePath": {
+                                "type": "string",
+                                "default": "",
+                                "description": "设置背景图片的路径",
+                                "title": "The SpritePath Schema",
+                                "examples": [
+                                    "UI/Textures/Icon/Interlude/YYSW/yysw_liushengji"
+                                ]
+                            }
                         }
                     }
                 },
@@ -325,82 +326,89 @@
                     },
                     "then": {
                         "properties": {
-                            "Sound": {
-                                "anyOf": [{
-                                    "type": "string"
-                                },
-                                {
-                                    "type": "null"
-                                }],
-                                "default": null,
-                                "description": "声音-暂时用途不明。",
-                                "title": "The Sound Schema",
-                                "examples": [
-                                    null
-                                ]
-                            },
-                            "NarratorData": {
+                            "Localization_Dialog": {
                                 "type": "object",
-                                "description": "讲述信息相关的内容",
-                                "title": "The NarratorData Schema",
-                                "required": [
-                                    "OverrideSpeaker",
-                                    "Localization_Des"
-                                ],
-                                "properties": {
-                                    "OverrideSpeaker": {
+                                "description": "显示讲述文本",
+                                "additionalProperties": true,
+                                "properties":{
+                                    "Sound": {
                                         "anyOf": [{
                                             "type": "string"
                                         },
                                         {
                                             "type": "null"
                                         }],
-                                        "description": "对使用的讲述人进行覆写，如果不进行覆写默认为 守秘人。",
                                         "default": null,
-                                        "title": "The OverrideSpeaker Schema",
+                                        "description": "声音-暂时用途不明。",
+                                        "title": "The Sound Schema",
                                         "examples": [
                                             null
                                         ]
                                     },
-                                    "Localization_Des": {
-                                        "description": "将要讲述的文本内容",
-                                        "$ref": "#/definitions/Localization"
+                                    "NarratorData": {
+                                        "type": "object",
+                                        "description": "讲述信息相关的内容",
+                                        "title": "The NarratorData Schema",
+                                        "required": [
+                                            "OverrideSpeaker",
+                                            "Localization_Des"
+                                        ],
+                                        "properties": {
+                                            "OverrideSpeaker": {
+                                                "anyOf": [{
+                                                    "type": "string"
+                                                },
+                                                {
+                                                    "type": "null"
+                                                }],
+                                                "description": "对使用的讲述人进行覆写，如果不进行覆写默认为 守秘人。",
+                                                "default": null,
+                                                "title": "The OverrideSpeaker Schema",
+                                                "examples": [
+                                                    null
+                                                ]
+                                            },
+                                            "Localization_Des": {
+                                                "description": "将要讲述的文本内容",
+                                                "$ref": "#/definitions/Localization"
+                                            }
+                                        },
+                                        "examples": [{
+                                            "OverrideSpeaker": null,
+                                            "Localization_Des": {
+                                                "TarKey": "a1da95f948f2d615dfbfd0c4678d021e",
+                                                "InputText": "留声机中飘出的音乐声隐约让你感到了一丝不协调，就像是刻录的时候出了什么问题。",
+                                                "UseCustomParam": false,
+                                                "CustomParams": []
+                                            }
+                                        }]
+                                    },
+                                    "RoleDialog": {
+                                        "type": "null",
+                                        "default": null,
+                                        "title": "The RoleDialog Schema",
+                                        "examples": [
+                                            null
+                                        ]
+                                    },
+                                    "SpritePath": {
+                                        "type": "null",
+                                        "default": null,
+                                        "title": "The SpritePath Schema",
+                                        "examples": [
+                                            null
+                                        ]
+                                    },
+                                    "Complete_Opt": {
+                                        "type": "array",
+                                        "default": [],
+                                        "title": "The Complete_Opt Schema",
+                                        "items": {},
+                                        "examples": [
+                                            []
+                                        ]
                                     }
-                                },
-                                "examples": [{
-                                    "OverrideSpeaker": null,
-                                    "Localization_Des": {
-                                        "TarKey": "a1da95f948f2d615dfbfd0c4678d021e",
-                                        "InputText": "留声机中飘出的音乐声隐约让你感到了一丝不协调，就像是刻录的时候出了什么问题。",
-                                        "UseCustomParam": false,
-                                        "CustomParams": []
-                                    }
-                                }]
-                            },
-                            "RoleDialog": {
-                                "type": "null",
-                                "default": null,
-                                "title": "The RoleDialog Schema",
-                                "examples": [
-                                    null
-                                ]
-                            },
-                            "SpritePath": {
-                                "type": "null",
-                                "default": null,
-                                "title": "The SpritePath Schema",
-                                "examples": [
-                                    null
-                                ]
-                            },
-                            "Complete_Opt": {
-                                "type": "array",
-                                "default": [],
-                                "title": "The Complete_Opt Schema",
-                                "items": {},
-                                "examples": [
-                                    []
-                                ]
+                                }
                             }
                         }
                     }
