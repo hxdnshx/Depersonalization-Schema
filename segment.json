@@ -247,6 +247,16 @@
                 "InputText": "寻找屋主人",
                 "TarKey": "55215827eaf3f2ffd0ab57d8bbb836d8",
                 "UseCustomParam" : false
+            },
+            "defaultSnippets":{
+                "label": "自动补全",
+                "description": "生成一个默认的本地化文本段落",
+                "body": {
+                    "CustomParams": [],
+                    "InputText": "$1",
+                    "TarKey": "55215827eaf3f2ffd0ab57d8bbb836d8",
+                    "UseCustomParam" : false
+                }
             }
         },
         "Opt": {
