@@ -40,8 +40,13 @@
                             "type": "object",
                             "properties": {
                                 "AudioRes": {
-                                    "type": "string",
-                                    "description": "对应的模组BGM"
+                                    "anyOf": [{
+                                        "type": "string",
+                                        "description": "对应的模组BGM"
+                                    },
+                                    {
+                                        "type": "null"
+                                    }]
                                 },
                                 "Volume": {
                                     "type": "number",
@@ -119,16 +124,19 @@
             "additionalProperties": false,
             "properties": {
                 "ChooseKey": {
-                    "type": "string"
+                    "type": "string",
+                    "description": "这个章节的代号，在跳转指令中可以通过这个代号来指定跳转到的章节。"
                 },
                 "Segments": {
                     "type": "array",
+                    "description": "这个章节中包含的部分，会从前到后顺序执行",
                     "items": {
                         "$ref": "#/definitions/Segment"
                     }
                 },
                 "InterludeOptions": {
                     "type": "array",
+                    "description": "完成 Segments 内的操作后，会显示出这里标识的若干个选项，由玩家进行选择。",
                     "items": {
                         "$ref": "#/definitions/InterludeOption"
                     }
@@ -139,38 +147,45 @@
                 "InterludeOptions",
                 "Segments"
             ],
-            "title": "Welcome3"
+            "title": "Interclude"
         },
         "InterludeOption": {
             "type": "object",
             "additionalProperties": false,
             "properties": {
                 "Localization_BtnDes": {
-                    "$ref": "#/definitions/Localization"
+                    "$ref": "#/definitions/Localization",
+                    "description": "按钮上的描述"
                 },
                 "Localization_BtnTip": {
-                    "$ref": "#/definitions/Localization"
+                    "$ref": "#/definitions/Localization",
+                    "description": "按钮的悬浮说明"
                 },
                 "Trait_Locks": {
                     "type": "array",
+                    "description": "暂时用处不明",
                     "items": {}
                 },
                 "Trait_Awards": {
                     "type": "array",
+                    "description": "暂时用处不明",
                     "items": {}
                 },
                 "Checks": {
                     "type": "array",
+                    "description": "用于表示这个选项可被选择的条件，仅当内部的所有条件满足时，可被选择",
                     "items": {}
                 },
                 "Opts": {
                     "type": "array",
+                    "description": "点选后会执行的相关行为",
                     "items": {
                         "$ref": "#/definitions/Opt"
                     }
                 },
                 "IsCompleteBtn": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "标识这是否是“幕间完成”按钮，如果是则文本内容/逻辑会被替换。"
                 }
             },
             "required": [
@@ -196,7 +211,8 @@
                         {
                             "type": "string"
                         }
-                    ]
+                    ],
+                    "description": "对应本地化文本的编号"
                 },
                 "InputText": {
                     "anyOf": [
@@ -206,14 +222,17 @@
                         {
                             "type": "string"
                         }
-                    ]
+                    ],
+                    "description": "这句话对应的文本（会用于本地化语音的关联）"
                 },
                 "UseCustomParam": {
-                    "type": "boolean"
+                    "type": "boolean",
+                    "description": "文本中是否使用了部分自定义替代参数（如技能名，请使用 CustomParam 以保证正确的本地化行为）"
                 },
                 "CustomParams": {
                     "type": "array",
-                    "items": {}
+                    "items": {},
+                    "description": "对自定义替代参数的定义"
                 }
             },
             "required": [
@@ -222,7 +241,13 @@
                 "TarKey",
                 "UseCustomParam"
             ],
-            "title": "Localization"
+            "title": "Localization",
+            "default": {
+                "CustomParams": [],
+                "InputText": "寻找屋主人",
+                "TarKey": "55215827eaf3f2ffd0ab57d8bbb836d8",
+                "UseCustomParam" : false
+            }
         },
         "Opt": {
             "type": "object",
