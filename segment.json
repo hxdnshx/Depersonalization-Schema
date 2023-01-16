@@ -478,7 +478,7 @@
                 "Complete_Opt": {
                     "type": "array",
                     "items": {
-                        "$ref": "#/definitions/Opt"
+                        "$ref": "#/definitions/InterludeEvent"
                     }
                 }
             },
