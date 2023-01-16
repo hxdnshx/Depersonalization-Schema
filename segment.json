@@ -52,16 +52,32 @@
                             ]
                         },
                         "NoProfNameList": {
-                            "type": "array"
+                            "type": "array",
+                            "description": "可进行这个幕间的职业列表",
+                            "items": {
+                                "type": "string",
+                                "examples": [
+                                    "学者",
+                                    "警察",
+                                    "打手",
+                                    "侦探",
+                                    "医生",
+                                    "旅者"
+                                ]
+                            }
                         },
                         "LockCheckList": {
-                            "type": "array"
+                            "type": "array",
+                            "description": "解锁检查条件列表（目前版本暂时没有条件）"
                         },
                         "Config": {
                             "type": "object",
                             "properties": {
                                 "All": {
-                                    "type": "array"
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/definitions/Interclude"
+                                    }
                                 }
                             },
                             "required": [
@@ -69,7 +85,8 @@
                             ]
                         },
                         "InterludeCoverPath": {
-                            "type": "string"
+                            "type": "string",
+                            "description": "这个幕间的封面的路径"
                         }
                     },
                     "required": [
