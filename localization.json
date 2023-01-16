@@ -1,0 +1,22 @@
+{
+    "$schema":"http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["TarKey", "InputText", "UseCustomParam", "CustomParams"],
+    "properties": {
+      "TarKey": {
+        "type": "string"
+      },
+      "InputText": {
+        "type": "string"
+      },
+      "UseCustomParam": {
+        "type": "string"
+      },
+      "CustomParams": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  }

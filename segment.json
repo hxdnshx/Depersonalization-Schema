@@ -1,0 +1,280 @@
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/Interclude",
+    "definitions": {
+        "TextModule": {
+            "type": "object",
+            "properties": {
+                "__type": {
+                    "type": "string",
+                    "description": "对应的类型，在根部固定为 MOD.InterludeData,Assembly-CSharp",
+                    "default": "MOD.InterludeData,Assembly-CSharp"
+                },
+                "value": {
+                    "type": "object",
+                    "properties": {
+                        "ModuleKey": {
+                            "type": "string",
+                            "description": "幕间的代号"
+                        },
+                        "Localization_ModuleName": {
+                            "$ref": "#/definitions/Localization",
+                            "description": "幕间模组的名称"
+                        },
+                        "IsLock": {
+                            "type": "boolean",
+                            "description": "幕间是否可被游玩."
+                        },
+                        "StartInterludeInfo": {
+                            "$ref": "#/definitions/Localization",
+                            "description": "幕间的介绍文本"
+                        },
+                        "BGM": {
+                            "type": "object",
+                            "properties": {
+                                "AudioRes": {
+                                    "type": "string",
+                                    "description": "对应的模组BGM"
+                                },
+                                "Volume": {
+                                    "type": "number",
+                                    "description": "音量大小"
+                                },
+                                "FadeTime": {
+                                    "type": "number",
+                                    "description": "渐入渐出时间（秒）"
+                                }
+                            },
+                            "required": [
+                                "AudioRes",
+                                "Volume",
+                                "FadeTime"
+                            ]
+                        },
+                        "NoProfNameList": {
+                            "type": "array"
+                        },
+                        "LockCheckList": {
+                            "type": "array"
+                        },
+                        "Config": {
+                            "type": "object",
+                            "properties": {
+                                "All": {
+                                    "type": "array"
+                                }
+                            },
+                            "required": [
+                                "All"
+                            ]
+                        },
+                        "InterludeCoverPath": {
+                            "type": "string"
+                        }
+                    },
+                    "required": [
+                        "ModuleKey",
+                        "Localization_ModuleName",
+                        "IsLock",
+                        "StartInterludeInfo",
+                        "BGM",
+                        "NoProfNameList",
+                        "LockCheckList",
+                        "Config",
+                        "InterludeCoverPath"
+                    ]
+                }
+            },
+            "required": [
+                "__type",
+                "value"
+            ]
+        },
+        "Interclude": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "ChooseKey": {
+                    "type": "string"
+                },
+                "Segments": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Segment"
+                    }
+                },
+                "InterludeOptions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/InterludeOption"
+                    }
+                }
+            },
+            "required": [
+                "ChooseKey",
+                "InterludeOptions",
+                "Segments"
+            ],
+            "title": "Welcome3"
+        },
+        "InterludeOption": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "Localization_BtnDes": {
+                    "$ref": "#/definitions/Localization"
+                },
+                "Localization_BtnTip": {
+                    "$ref": "#/definitions/Localization"
+                },
+                "Trait_Locks": {
+                    "type": "array",
+                    "items": {}
+                },
+                "Trait_Awards": {
+                    "type": "array",
+                    "items": {}
+                },
+                "Checks": {
+                    "type": "array",
+                    "items": {}
+                },
+                "Opts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Opt"
+                    }
+                },
+                "IsCompleteBtn": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "Checks",
+                "IsCompleteBtn",
+                "Localization_BtnDes",
+                "Localization_BtnTip",
+                "Opts",
+                "Trait_Awards",
+                "Trait_Locks"
+            ],
+            "title": "InterludeOption"
+        },
+        "Localization": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "TarKey": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "InputText": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
+                },
+                "UseCustomParam": {
+                    "type": "boolean"
+                },
+                "CustomParams": {
+                    "type": "array",
+                    "items": {}
+                }
+            },
+            "required": [
+                "CustomParams",
+                "InputText",
+                "TarKey",
+                "UseCustomParam"
+            ],
+            "title": "Localization"
+        },
+        "Opt": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "__type": {
+                    "type": "string"
+                },
+                "SetMode": {
+                    "type": "integer"
+                },
+                "SpritePath": {
+                    "type": "string"
+                },
+                "_baseKey": {
+                    "type": "string",
+                    "format": "integer"
+                },
+                "TarKey": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "__type",
+                "_baseKey"
+            ],
+            "title": "Opt"
+        },
+        "Segment": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "Sound": {
+                    "type": "null"
+                },
+                "NarratorData": {
+                    "$ref": "#/definitions/NarratorData"
+                },
+                "RoleDialog": {
+                    "type": "null"
+                },
+                "SpritePath": {
+                    "type": "null"
+                },
+                "Complete_Opt": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/Opt"
+                    }
+                }
+            },
+            "required": [
+                "Complete_Opt",
+                "NarratorData",
+                "RoleDialog",
+                "Sound",
+                "SpritePath"
+            ],
+            "title": "Segment"
+        },
+        "NarratorData": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+                "OverrideSpeaker": {
+                    "type": "null"
+                },
+                "Localization_Des": {
+                    "$ref": "#/definitions/Localization"
+                }
+            },
+            "required": [
+                "Localization_Des",
+                "OverrideSpeaker"
+            ],
+            "title": "NarratorData"
+        }
+    }
+}
