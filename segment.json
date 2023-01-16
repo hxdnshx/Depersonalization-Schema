@@ -180,7 +180,7 @@
                     "type": "array",
                     "description": "点选后会执行的相关行为",
                     "items": {
-                        "$ref": "#/definitions/Opt"
+                        "$ref": "#/definitions/InterludeEvent"
                     }
                 },
                 "IsCompleteBtn": {
@@ -259,32 +259,55 @@
                 }
             }
         },
-        "Opt": {
+        "InterludeEvent": {
             "type": "object",
-            "additionalProperties": false,
+            "additionalProperties": true,
             "properties": {
                 "__type": {
-                    "type": "string"
-                },
-                "SetMode": {
-                    "type": "integer"
-                },
-                "SpritePath": {
-                    "type": "string"
+                    "type": "string",
+                    "default": "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
+                    "description": "对应的具体类型，不同的类型包含不同的参数，以及不同的功能",
+                    "examples": [
+                        "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp"
+                    ]
                 },
                 "_baseKey": {
                     "type": "string",
-                    "format": "integer"
-                },
-                "TarKey": {
-                    "type": "string"
+                    "format": "integer",
+                    "description": "内部用于标记同一个对象的标记，一般而言同一个文本可以设为相同值。"
                 }
             },
+            "allof": [
+                {
+                    "if": {
+
+                    },
+                    "then": {
+                        "properties": {
+                            "TarKey": {
+                                "type": "string",
+                                "description": "转到指定的一个章节（ChooseKey名）"
+                            }
+                        }
+                    }
+                }
+            ],
+            "title": "InterludeEvent",
+            "defaultSnippets":[
+                {
+                    "label": "选择枝跳转",
+                    "description": "这是一个跳转选择枝的例子",
+                    "body": {
+                        "__type" : "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
+                        "TarKey" : "$1",
+                        "_baseKey" : "$2"
+                    }
+                }
+            ],
             "required": [
                 "__type",
                 "_baseKey"
-            ],
-            "title": "Opt"
+            ]
         },
         "Segment": {
             "type": "object",
