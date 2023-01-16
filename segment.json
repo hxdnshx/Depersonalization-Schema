@@ -1,6 +1,13 @@
 {
     "$schema": "http://json-schema.org/draft-06/schema#",
-    "$ref": "#/definitions/Interclude",
+    
+
+    "properties": {
+        "TextModule": {
+            "$ref": "#/definitions/TextModule"
+        }
+    },
+    "additionalProperties": true,
     "definitions": {
         "TextModule": {
             "type": "object",
