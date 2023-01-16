@@ -41,12 +41,12 @@
                             "properties": {
                                 "AudioRes": {
                                     "anyOf": [{
-                                        "type": "string",
-                                        "description": "对应的模组BGM"
+                                        "type": "string"
                                     },
                                     {
                                         "type": "null"
-                                    }]
+                                    }],
+                                    "description": "对应的模组BGM"
                                 },
                                 "Volume": {
                                     "type": "number",
@@ -268,7 +268,9 @@
                     "default": "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
                     "description": "对应的具体类型，不同的类型包含不同的参数，以及不同的功能",
                     "examples": [
-                        "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp"
+                        "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
+                        "InterludeEvent.SetInterludeTxtBg,Assembly-CSharp",
+                        "InterludeEvent.ShowCenterDialogOption,Assembly-CSharp"
                     ]
                 },
                 "_baseKey": {
@@ -280,13 +282,125 @@
             "allof": [
                 {
                     "if": {
-
+                        "properties": { "__type": { "const": "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp" } }
                     },
                     "then": {
                         "properties": {
                             "TarKey": {
                                 "type": "string",
                                 "description": "转到指定的一个章节（ChooseKey名）"
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.SetInterludeTxtBg,Assembly-CSharp" } }
+                    },
+                    "then":
+                    {
+                        "SetMode": {
+                            "type": "integer",
+                            "default": 0,
+                            "description": "设置为显示或是消失",
+                            "title": "The SetMode Schema",
+                            "examples": [
+                                1, 0
+                            ]
+                        },
+                        "SpritePath": {
+                            "type": "string",
+                            "default": "",
+                            "description": "设置背景图片的路径",
+                            "title": "The SpritePath Schema",
+                            "examples": [
+                                "UI/Textures/Icon/Interlude/YYSW/yysw_liushengji"
+                            ]
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.ShowCenterDialogOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties": {
+                            "Sound": {
+                                "anyOf": [{
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }],
+                                "default": null,
+                                "description": "声音-暂时用途不明。",
+                                "title": "The Sound Schema",
+                                "examples": [
+                                    null
+                                ]
+                            },
+                            "NarratorData": {
+                                "type": "object",
+                                "description": "讲述信息相关的内容",
+                                "title": "The NarratorData Schema",
+                                "required": [
+                                    "OverrideSpeaker",
+                                    "Localization_Des"
+                                ],
+                                "properties": {
+                                    "OverrideSpeaker": {
+                                        "anyOf": [{
+                                            "type": "string"
+                                        },
+                                        {
+                                            "type": "null"
+                                        }],
+                                        "description": "对使用的讲述人进行覆写，如果不进行覆写默认为 守秘人。",
+                                        "default": null,
+                                        "title": "The OverrideSpeaker Schema",
+                                        "examples": [
+                                            null
+                                        ]
+                                    },
+                                    "Localization_Des": {
+                                        "description": "将要讲述的文本内容",
+                                        "$ref": "#/definitions/Localization"
+                                    }
+                                },
+                                "examples": [{
+                                    "OverrideSpeaker": null,
+                                    "Localization_Des": {
+                                        "TarKey": "a1da95f948f2d615dfbfd0c4678d021e",
+                                        "InputText": "留声机中飘出的音乐声隐约让你感到了一丝不协调，就像是刻录的时候出了什么问题。",
+                                        "UseCustomParam": false,
+                                        "CustomParams": []
+                                    }
+                                }]
+                            },
+                            "RoleDialog": {
+                                "type": "null",
+                                "default": null,
+                                "title": "The RoleDialog Schema",
+                                "examples": [
+                                    null
+                                ]
+                            },
+                            "SpritePath": {
+                                "type": "null",
+                                "default": null,
+                                "title": "The SpritePath Schema",
+                                "examples": [
+                                    null
+                                ]
+                            },
+                            "Complete_Opt": {
+                                "type": "array",
+                                "default": [],
+                                "title": "The Complete_Opt Schema",
+                                "items": {},
+                                "examples": [
+                                    []
+                                ]
                             }
                         }
                     }
@@ -301,6 +415,42 @@
                         "__type" : "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
                         "TarKey" : "$1",
                         "_baseKey" : "$2"
+                    }
+                },
+                {
+                    "label": "背景图片设置",
+                    "description": "这是一个设置幕间背景图片的例子",
+                    "body": {
+                        "__type": "InterludeEvent.SetInterludeTxtBg,Assembly-CSharp",
+                        "SetMode": 1,
+                        "SpritePath": "UI\/Textures\/Icon\/Interlude\/YYSW\/yysw_liushengji",
+                        "_baseKey": "$1"
+                    }
+                },
+                {
+                    "label": "文本输出",
+                    "description": "一般用于检定结束的文本显示",
+                    "body": {
+                        "__type": "InterludeEvent.ShowCenterDialogOption,Assembly-CSharp",
+                        "Localization_Dialog": {
+                            "Sound": null,
+                            "NarratorData": {
+                                "OverrideSpeaker": null,
+                                "Localization_Des": {
+                                    "TarKey": "a1da95f948f2d615dfbfd0c4678d021e",
+                                    "InputText": "留声机中飘出的音乐声隐约让你感到了一丝不协调，就像是刻录的时候出了什么问题。",
+                                    "UseCustomParam": false,
+                                    "CustomParams": [
+                    
+                                    ]
+                                }
+                            },
+                            "RoleDialog": null,
+                            "SpritePath": null,
+                            "Complete_Opt": [
+                            ]
+                        },
+                        "_baseKey": null
                     }
                 }
             ],
