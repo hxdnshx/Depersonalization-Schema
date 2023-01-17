@@ -27,7 +27,40 @@
     },
     "additionalProperties": true,
     "definitions": {
-        
+        "DiceString": {
+            "anyOf": [
+                {
+                    "type": "null"
+                },
+                {
+                    "type": "string"
+                }
+            ],
+            "default": null,
+            "title": "骰子数值",
+            "description": "格式为 +/- 符号分隔的一组字符， 1D6 代表一个6面骰子，使用 +/- 号组合时代表同时骰出若干个骰子。",
+            "examples": [
+                "1D3+1"
+            ]
+        },
+        "ERoleSystemAttribute": {
+            "type": "string",
+            "title": "角色系统能力类别",
+            "description": "标记部分特殊能力的类别",
+            "enum": [ "None",
+                "SanFailRatio",
+                "ConceptRecoverSan",
+                "MaxSan",
+                "GreatSuccessBorder",
+                "GreatFailBorder",
+                "IsCanUseFood",
+                "SanWeaknessBorder",
+                "SanCollapseBorder",
+                "PersonUseSan",
+                "AddDiceConsume",
+                "SanNormalBorder"],
+            "default": "None"
+        },
         "ERoleDataChangeType": {
             "type": "string",
             "title": "检验类别",
@@ -44,10 +77,23 @@
 
             ]  
         },
+        "ECalculationType": {
+            "type": "string",
+            "title": "计算类别",
+            "description": "指定使用的表达式（=,+=,-=）",
+            "enum": ["None",
+                "Attr",
+                "Extra",
+                "Skill",
+                "Item",
+                "Spec",
+                "SystemAttr"],
+            "default": "None"
+        },
         "EExploreSkill":
         {
             "type": "number",
-            "title": "技能类别",
+            "title": "探索技能类别",
             "description": "当检定技能时，指定技能的类别",
             "enum": [0, 101, 102, 201, 203, 301, 302, 403, 405, 501, 502, 601, 603],
             "default": 0,
@@ -93,8 +139,8 @@
         },
         "ERoleExtraAttribute":{
             "type": "number",
-            "title": "技能类别",
-            "description": "当检定技能时，指定技能的类别",
+            "title": "状态类别",
+            "description": "当检定时，指定状态的类别",
             "enum": [0, 101, 102, 103, 104, 106, 107, 108, 112, 113, 114, 117, 118, 119],
             "default": 0,
             "defaultSnippets": [
@@ -142,7 +188,7 @@
         },
         "EHeroAttribute": {
             "type": "number",
-            "title": "技能类别",
+            "title": "能力类别",
             "description": "当检定技能时，指定技能的类别",
             "enum": [0, 1, 2, 3, 4, 6],
             "default": 0,
@@ -165,6 +211,415 @@
                 }
             ]
         },
+        "ChangeItem": {
+                "type": "object",
+                "default": {},
+                "title": "A Schema",
+                "required": [
+                    "IsTrackSource",
+                    "RoleAttr",
+                    "RoleExAttr",
+                    "RoleSkill",
+                    "RoleSystemAttr",
+                    "ExDiceData"
+                ],
+                "properties": {
+                    "IsTrackSource": {
+                        "type": "boolean",
+                        "default": false,
+                        "title": "是否追踪变动来源（未确定用途，建议false）",
+                        "examples": [
+                            false
+                        ]
+                    },
+                    "RoleAttr": {
+                        "type": "object",
+                        "description": "对角色能力的变动（体质等）",
+                        "default": {},
+                        "title": "能力变动",
+                        "required": [
+                            "Type",
+                            "Value",
+                            "IsRatio",
+                            "Ratio"
+                        ],
+                        "properties": {
+                            "Type": {
+                                "$ref": "#/definitions/EHeroAttribute"
+                            },
+                            "Value": {
+                                "$ref": "#/definitions/DiceString"
+                            },
+                            "IsRatio": {
+                                "type": "boolean",
+                                "default": false,
+                                "title": "使用骰子还是固定数值变动",
+                                "description": "True 代表使用 Ratio 的数值变动， False 代表使用 Value 的骰子变动",
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "Ratio": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "变动的数值",
+                                "examples": [
+                                    0
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "Type": 0,
+                            "Value": null,
+                            "IsRatio": false,
+                            "Ratio": 0
+                        }]
+                    },
+                    "RoleExAttr": {
+                        "type": "object",
+                        "default": {},
+                        "title": "对角色状态的变动",
+                        "required": [
+                            "Type",
+                            "Value",
+                            "IsRatio",
+                            "Ratio"
+                        ],
+                        "properties": {
+                            "Type": {
+                                "$ref": "#/definitions/ERoleExtraAttribute"
+                            },
+                            "Value": {
+                                "$ref": "#/definitions/DiceString"
+                            },
+                            "IsRatio": {
+                                "type": "boolean",
+                                "default": false,
+                                "title": "使用骰子还是固定数值变动",
+                                "description": "True 代表使用 Ratio 的数值变动， False 代表使用 Value 的骰子变动",
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "Ratio": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "变动的数值",
+                                "examples": [
+                                    0
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "Type": 101,
+                            "Value": "-2D6",
+                            "IsRatio": false,
+                            "Ratio": 0
+                        }]
+                    },
+                    "RoleSkill": {
+                        "type": "object",
+                        "default": {},
+                        "title": "对探索技能的数值变动",
+                        "required": [
+                            "Type",
+                            "Value",
+                            "IsRatio",
+                            "Ratio"
+                        ],
+                        "properties": {
+                            "Type": {
+                                "$ref": "#/definitions/EExploreSkill"
+                            },
+                            "Value": {
+                                "$ref": "#/definitions/DiceString"
+                            },
+                            "IsRatio": {
+                                "type": "boolean",
+                                "default": false,
+                                "title": "使用骰子还是固定数值变动",
+                                "description": "True 代表使用 Ratio 的数值变动， False 代表使用 Value 的骰子变动",
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "Ratio": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "变动的数值",
+                                "examples": [
+                                    0
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "Type": 0,
+                            "Value": null,
+                            "IsRatio": false,
+                            "Ratio": 0
+                        }]
+                    },
+                    "RoleSystemAttr": {
+                        "type": "object",
+                        "default": {},
+                        "title": "对部分系统特殊能力的变更",
+                        "required": [
+                            "Type",
+                            "Value",
+                            "IsRatio",
+                            "Ratio"
+                        ],
+                        "properties": {
+                            "Type": {
+                                "$ref": "#/definitions/ERoleSystemAttribute"
+                            },
+                            "Value": {
+                                "$ref": "#/definitions/DiceString"
+                            },
+                            "IsRatio": {
+                                "type": "boolean",
+                                "default": false,
+                                "title": "使用骰子还是固定数值变动",
+                                "description": "True 代表使用 Ratio 的数值变动， False 代表使用 Value 的骰子变动",
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "Ratio": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "变动的数值",
+                                "examples": [
+                                    0
+                                ]
+                            }
+                        },
+                        "examples": [{
+                            "Type": 0,
+                            "Value": null,
+                            "IsRatio": false,
+                            "Ratio": 0
+                        }]
+                    },
+                    "ExDiceData": {
+                        "type": "object",
+                        "default": {},
+                        "title": "对额外属性奖惩骰子进行设定",
+                        "required": [
+                            "ExploreSkill",
+                            "HeroAttribute",
+                            "ExtraAttribute"
+                        ],
+                        "properties": {
+                            "ExploreSkill": {
+                                "type": "object",
+                                "default": {},
+                                "title": "The ExploreSkill Schema",
+                                "required": [
+                                    "Type",
+                                    "ChangeAll",
+                                    "IsTemp",
+                                    "Value"
+                                ],
+                                "properties": {
+                                    "Type": {
+                                        "$ref": "#/definitions/EExploreSkill"
+                                    },
+                                    "ChangeAll": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "title": "是否是对所有属性使用奖惩骰",
+                                        "examples": [
+                                            false
+                                        ]
+                                    },
+                                    "IsTemp": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "title": "是否是临时的奖惩骰",
+                                        "examples": [
+                                            false
+                                        ]
+                                    },
+                                    "Value": {
+                                        "type": "integer",
+                                        "default": 0,
+                                        "title": "增减的数值",
+                                        "examples": [
+                                            0
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "Type": 0,
+                                    "ChangeAll": false,
+                                    "IsTemp": false,
+                                    "Value": 0
+                                }]
+                            },
+                            "HeroAttribute": {
+                                "type": "object",
+                                "default": {},
+                                "title": "The HeroAttribute Schema",
+                                "required": [
+                                    "Type",
+                                    "ChangeAll",
+                                    "IsTemp",
+                                    "Value"
+                                ],
+                                "properties": {
+                                    "Type": {
+                                        "$ref": "#/definitions/EHeroAttribute"
+                                    },
+                                    "ChangeAll": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "title": "是否是对所有属性使用奖惩骰",
+                                        "examples": [
+                                            false
+                                        ]
+                                    },
+                                    "IsTemp": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "title": "是否是临时的奖惩骰",
+                                        "examples": [
+                                            false
+                                        ]
+                                    },
+                                    "Value": {
+                                        "type": "integer",
+                                        "default": 0,
+                                        "title": "增减的数值",
+                                        "examples": [
+                                            0
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "Type": 0,
+                                    "ChangeAll": false,
+                                    "IsTemp": false,
+                                    "Value": 0
+                                }]
+                            },
+                            "ExtraAttribute": {
+                                "type": "object",
+                                "default": {},
+                                "title": "The ExtraAttribute Schema",
+                                "required": [
+                                    "Type",
+                                    "ChangeAll",
+                                    "IsTemp",
+                                    "Value"
+                                ],
+                                "properties": {
+                                    "Type": {
+                                        "$ref": "#/definitions/ERoleExtraAttribute"
+                                    },
+                                    "ChangeAll": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "title": "是否是对所有属性使用奖惩骰",
+                                        "examples": [
+                                            false
+                                        ]
+                                    },
+                                    "IsTemp": {
+                                        "type": "boolean",
+                                        "default": false,
+                                        "title": "是否是临时的奖惩骰",
+                                        "examples": [
+                                            false
+                                        ]
+                                    },
+                                    "Value": {
+                                        "type": "integer",
+                                        "default": 0,
+                                        "title": "增减的数值",
+                                        "examples": [
+                                            0
+                                        ]
+                                    }
+                                },
+                                "examples": [{
+                                    "Type": 0,
+                                    "ChangeAll": false,
+                                    "IsTemp": false,
+                                    "Value": 0
+                                }]
+                            }
+                        },
+                        "examples": [{
+                            "ExploreSkill": {
+                                "Type": 0,
+                                "ChangeAll": false,
+                                "IsTemp": false,
+                                "Value": 0
+                            },
+                            "HeroAttribute": {
+                                "Type": 0,
+                                "ChangeAll": false,
+                                "IsTemp": false,
+                                "Value": 0
+                            },
+                            "ExtraAttribute": {
+                                "Type": 0,
+                                "ChangeAll": false,
+                                "IsTemp": false,
+                                "Value": 0
+                            }
+                        }]
+                    }
+                },
+                "defaultSnippets": {
+                    "IsTrackSource": false,
+                    "RoleAttr": {
+                        "Type": 0,
+                        "Value": null,
+                        "IsRatio": false,
+                        "Ratio": 0
+                    },
+                    "RoleExAttr": {
+                        "Type": 101,
+                        "Value": "-2D6",
+                        "IsRatio": false,
+                        "Ratio": 0
+                    },
+                    "RoleSkill": {
+                        "Type": 0,
+                        "Value": null,
+                        "IsRatio": false,
+                        "Ratio": 0
+                    },
+                    "RoleSystemAttr": {
+                        "Type": 0,
+                        "Value": null,
+                        "IsRatio": false,
+                        "Ratio": 0
+                    },
+                    "ExDiceData": {
+                        "ExploreSkill": {
+                            "Type": 0,
+                            "ChangeAll": false,
+                            "IsTemp": false,
+                            "Value": 0
+                        },
+                        "HeroAttribute": {
+                            "Type": 0,
+                            "ChangeAll": false,
+                            "IsTemp": false,
+                            "Value": 0
+                        },
+                        "ExtraAttribute": {
+                            "Type": 0,
+                            "ChangeAll": false,
+                            "IsTemp": false,
+                            "Value": 0
+                        }
+                    }
+                }
+        },
         "ECompareType": {
             "type": "string",
             "title": "比较方式",
@@ -174,6 +629,15 @@
                 "Equal",
                 "Greater",
                 "GreaterEqual"]
+        },
+        "EAddChangeMode": {
+            "type": "string",
+            "title": "操作方式",
+            "description": "用于标记是增加还是移除",
+            "enum": ["None",
+                "Add",
+                "Remove",
+                "SetLayer"]
         },
         "TextModule": {
             "type": "object",
@@ -700,6 +1164,106 @@
                             }
                         }
                     }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.ChangeRoleInterludeTime,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "FixedValue": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "变化的固定值",
+                                "examples": [
+                                    0
+                                ]
+                            },
+                            "IsRandomValue": {
+                                "type": "boolean",
+                                "default": false,
+                                "title": "使用骰子还是固定值",
+                                "description": "为 True 的场合使用 DiceStr 描述的骰子，为 False 的场合使用 FixedValue 描述的固定值。",
+                                "examples": [
+                                    false
+                                ]
+                            },
+                            "DiceStr": {
+                                "$ref": "#/definitions/DiceString"
+                            },
+                            "Mode": {
+                                "type": "string",
+                                "default": "None",
+                                "title": "代表指定的为加算还是减算。",
+                                "enum": ["None", "Add", "Reduce"]
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.ChangeRoleItemOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "AddMode": {
+                                "$ref": "#/definitions/EAddChangeMode"
+                            },
+                            "ItemId": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "要添加/删除的物品ID（可以从 Item 目录对应）",
+                                "examples": [
+                                    1
+                                ]
+                            },
+                            "Num": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "要添加/删除的物品数量",
+                                "examples": [
+                                    1
+                                ]
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.ChangeRoleValueOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "ChangeList": {
+                                "type": "array",
+                                "default": [],
+                                "title": "需要变更的角色属性列表",
+                                "items": {
+                                    "$ref": "#/definitions/ChangeItem"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.ChangeSpacePointOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "ChangeMode": {
+                                "$ref": "#/definitions/EAddChangeMode"
+                            },
+                            "Point": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "点数变化的数值",
+                                "examples": [
+                                    114514
+                                ]
+                            }
+                        }
+                    }
                 }
             ],
             "title": "InterludeEvent",
@@ -774,6 +1338,102 @@
                         "_baseKey": null,
                         "CheckValue": 10
                     }
+                },
+                {
+                    "label": "重置BGM",
+                    "description": "切换BGM到幕间开头的BGM",
+                    "body": {
+                        "__type": "InterludeEvent.BackInterludeStartBgm,Assembly-CSharp",
+                        "_baseKey": null
+                    }
+                },
+                {
+                    "label": "变更幕间时间点数",
+                    "description": "进行固定或者基于随机数的增加/减少",
+                    "body": {
+                        "__type": "InterludeEvent.ChangeRoleInterludeTime,Assembly-CSharp",
+                        "_baseKey": null,
+                        "FixedValue": 0,
+                        "IsRandomValue": false,
+                        "DiceStr": "1D3+1",
+                        "Mode": "Add"
+                    }
+                },
+                {
+                    "label": "给予/移除物品",
+                    "description": "给予或者移除角色身上的物品",
+                    "body": {
+                        "__type": "InterludeEvent.ChangeRoleItemOption,Assembly-CSharp",
+                        "_baseKey": null,
+                        "AddMode": "None",
+                        "ItemId": 1,
+                        "Num": 1
+                    }
+                },
+                {
+                    "label": "变更角色属性",
+                    "description": "变更 角色技能/状态/探索技能/奖惩骰 等等参数",
+                    "body": {
+                        "__type": "InterludeEvent.ChangeRoleValueOption,Assembly-CSharp",
+                        "_baseKey" : null,
+                        "ChangeList": [{
+                            "IsTrackSource": false,
+                            "RoleAttr": {
+                                "Type": 0,
+                                "Value": null,
+                                "IsRatio": false,
+                                "Ratio": 0
+                            },
+                            "RoleExAttr": {
+                                "Type": 101,
+                                "Value": "-2D6",
+                                "IsRatio": false,
+                                "Ratio": 0
+                            },
+                            "RoleSkill": {
+                                "Type": 0,
+                                "Value": null,
+                                "IsRatio": false,
+                                "Ratio": 0
+                            },
+                            "RoleSystemAttr": {
+                                "Type": 0,
+                                "Value": null,
+                                "IsRatio": false,
+                                "Ratio": 0
+                            },
+                            "ExDiceData": {
+                                "ExploreSkill": {
+                                    "Type": 0,
+                                    "ChangeAll": false,
+                                    "IsTemp": false,
+                                    "Value": 0
+                                },
+                                "HeroAttribute": {
+                                    "Type": 0,
+                                    "ChangeAll": false,
+                                    "IsTemp": false,
+                                    "Value": 0
+                                },
+                                "ExtraAttribute": {
+                                    "Type": 0,
+                                    "ChangeAll": false,
+                                    "IsTemp": false,
+                                    "Value": 0
+                                }
+                            }
+                        }]
+                    }
+                },
+                {
+                    "label": "变更时空点数",
+                    "description": "增加或者减少拥有的时空点数",
+                    "body": {
+                        "__type": "InterludeEvent.ChangeSpacePointOption,Assembly-CSharp",
+                        "_baseKey": null,
+                        "ChangeMode": "Increase",
+                        "Point": 114514
+                    }
                 }
             ],
             "required": [
@@ -787,7 +1447,33 @@
             "properties":{
                 "Sound": {
                     "anyOf": [{
-                        "type": "string"
+                        "type": "object",
+                        "properties": {
+                            "AudioRes": {
+                                "type": "string",
+                                "default": "",
+                                "title": "AudioClip 的路径",
+                                "examples": [
+                                    "Sound/Audio/FX/DOOR/DOOR_Indoor_Wood_Open_stereo"
+                                ]
+                            },
+                            "Volume": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "音量",
+                                "examples": [
+                                    1
+                                ]
+                            },
+                            "FadeTime": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "渐入渐出时间",
+                                "examples": [
+                                    1
+                                ]
+                            }
+                        }
                     },
                     {
                         "type": "null"
@@ -800,7 +1486,13 @@
                     ]
                 },
                 "NarratorData": {
-                    "$ref": "#/definitions/NarratorData"
+                    "anyOf": [{
+                        "$ref": "#/definitions/NarratorData"
+                    },
+                    {
+                        "type": "null"
+                    }]
+                    
                 },
                 "RoleDialog": {
                     "description": "另一种显示讲述文本的方式",

@@ -23,7 +23,7 @@
 # 如何使用
 
 1. 使用 Visual Studio Code 打开 `StreamingAssets` 目录。
-2. 修改当前 Workspace 的 VSCode 配置，即 `./.code/settings.json`，加入以下的配置项
+2. 修改当前 Workspace 的 VSCode 配置，即 `./.vscode/settings.json`（不同系统下可能目录有差别），加入以下的配置项
 ```
 {
     "workbench.editorAssociations": {
