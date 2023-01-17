@@ -5,6 +5,24 @@
     "properties": {
         "TextModule": {
             "$ref": "#/definitions/TextModule"
+        },
+        "Data": {
+            
+            "properties": {
+                "__type": {
+                    "type": "string",
+                    "description": "对应的类型，在根部固定为 MOD.InterludeData,Assembly-CSharp",
+                    "default": "MOD.InterludeData,Assembly-CSharp"
+                }},
+            "anyOf": [
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "MOD.InterludeData,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "$ref": "#/definitions/TextModule"
+                    }
+                }]
         }
     },
     "additionalProperties": true,
@@ -273,8 +291,14 @@
                     ]
                 },
                 "_baseKey": {
-                    "type": "string",
-                    "format": "integer",
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
                     "description": "内部用于标记同一个对象的标记，一般而言同一个文本可以设为相同值。"
                 }
             },
@@ -330,85 +354,7 @@
                                 "type": "object",
                                 "description": "显示讲述文本",
                                 "additionalProperties": true,
-                                "properties":{
-                                    "Sound": {
-                                        "anyOf": [{
-                                            "type": "string"
-                                        },
-                                        {
-                                            "type": "null"
-                                        }],
-                                        "default": null,
-                                        "description": "声音-暂时用途不明。",
-                                        "title": "The Sound Schema",
-                                        "examples": [
-                                            null
-                                        ]
-                                    },
-                                    "NarratorData": {
-                                        "type": "object",
-                                        "description": "讲述信息相关的内容",
-                                        "title": "The NarratorData Schema",
-                                        "required": [
-                                            "OverrideSpeaker",
-                                            "Localization_Des"
-                                        ],
-                                        "properties": {
-                                            "OverrideSpeaker": {
-                                                "anyOf": [{
-                                                    "type": "string"
-                                                },
-                                                {
-                                                    "type": "null"
-                                                }],
-                                                "description": "对使用的讲述人进行覆写，如果不进行覆写默认为 守秘人。",
-                                                "default": null,
-                                                "title": "The OverrideSpeaker Schema",
-                                                "examples": [
-                                                    null
-                                                ]
-                                            },
-                                            "Localization_Des": {
-                                                "description": "将要讲述的文本内容",
-                                                "$ref": "#/definitions/Localization"
-                                            }
-                                        },
-                                        "examples": [{
-                                            "OverrideSpeaker": null,
-                                            "Localization_Des": {
-                                                "TarKey": "a1da95f948f2d615dfbfd0c4678d021e",
-                                                "InputText": "留声机中飘出的音乐声隐约让你感到了一丝不协调，就像是刻录的时候出了什么问题。",
-                                                "UseCustomParam": false,
-                                                "CustomParams": []
-                                            }
-                                        }]
-                                    },
-                                    "RoleDialog": {
-                                        "type": "null",
-                                        "default": null,
-                                        "title": "The RoleDialog Schema",
-                                        "examples": [
-                                            null
-                                        ]
-                                    },
-                                    "SpritePath": {
-                                        "type": "null",
-                                        "default": null,
-                                        "title": "The SpritePath Schema",
-                                        "examples": [
-                                            null
-                                        ]
-                                    },
-                                    "Complete_Opt": {
-                                        "type": "array",
-                                        "default": [],
-                                        "title": "The Complete_Opt Schema",
-                                        "items": {},
-                                        "examples": [
-                                            []
-                                        ]
-                                    }
-                                }
+                                "$ref": "#/definitions/Segment"
                             }
                         }
                     }
@@ -470,24 +416,98 @@
         "Segment": {
             "type": "object",
             "additionalProperties": false,
-            "properties": {
+            "properties":{
                 "Sound": {
-                    "type": "null"
+                    "anyOf": [{
+                        "type": "string"
+                    },
+                    {
+                        "type": "null"
+                    }],
+                    "default": null,
+                    "description": "声音-暂时用途不明。",
+                    "title": "The Sound Schema",
+                    "examples": [
+                        null
+                    ]
                 },
                 "NarratorData": {
                     "$ref": "#/definitions/NarratorData"
                 },
                 "RoleDialog": {
-                    "type": "null"
+                    "description": "另一种显示讲述文本的方式",
+                    "title": "The RoleDialog Schema",
+                    "anyOf": [{
+                        "type": "object",
+                        "properties": {
+                            "OverrideSpeaker": {
+                                "anyOf": [{
+                                    "type": "string"
+                                },
+                                {
+                                    "type": "null"
+                                }],
+                                "description": "对使用的讲述人进行覆写，如果不进行覆写默认为 守秘人。",
+                                "default": null,
+                                "title": "The OverrideSpeaker Schema",
+                                "examples": [
+                                    null
+                                ]
+                            },
+                            "Name": {
+                                "description": "名称？",
+                                "$ref": "#/definitions/Localization"
+                            },
+                            "Dialogs":{
+                                "type": "array",
+                                "default": [],
+                                "items": {
+                                    "$ref": "#/definitions/Localization"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "type": "null"
+                    }],
+                    "examples": [
+                        null
+                    ],
+                    "defaultSnippets": {
+                        "OverrideSpeaker" : null,
+                        "Localization_Des" : {
+                            "TarKey" : "c34fbde0e352849dbd700a8e27f28e8d",
+                            "InputText" : "你收回视线，开始重新打量起这个房间。\r\n装修布设意外的高雅，摆件家具看上去也相当昂贵。\r\n这种屋子就算是在城里也只有富人才住的起，怎么看都不像是会出现在森林里的样子。",
+                            "UseCustomParam" : false,
+                            "CustomParams" : [
+                                
+                            ]
+                        }
+                    }
                 },
                 "SpritePath": {
-                    "type": "null"
+                    "anyOf": [{
+                        "type": "string"
+                    },
+                    {
+                        "type": "null"
+                    }],
+                    "default": null,
+                    "title": "The SpritePath Schema",
+                    "examples": [
+                        null
+                    ]
                 },
                 "Complete_Opt": {
                     "type": "array",
+                    "default": [],
+                    "title": "The Complete_Opt Schema",
                     "items": {
                         "$ref": "#/definitions/InterludeEvent"
-                    }
+                    },
+                    "examples": [
+                        []
+                    ]
                 }
             },
             "required": [
@@ -497,24 +517,73 @@
                 "Sound",
                 "SpritePath"
             ],
-            "title": "Segment"
+            "title": "Segment",
+            "defaultSnippets": {
+                "Sound" : null,
+                "NarratorData" : {
+                    "OverrideSpeaker" : null,
+                    "Localization_Des" : {
+                        "TarKey" : "c34fbde0e352849dbd700a8e27f28e8d",
+                        "InputText" : "你收回视线，开始重新打量起这个房间。\r\n装修布设意外的高雅，摆件家具看上去也相当昂贵。\r\n这种屋子就算是在城里也只有富人才住的起，怎么看都不像是会出现在森林里的样子。",
+                        "UseCustomParam" : false,
+                        "CustomParams" : [
+                            
+                        ]
+                    }
+                },
+                "RoleDialog" : null,
+                "SpritePath" : null,
+                "Complete_Opt" : [
+                    
+                ]
+            }
         },
         "NarratorData": {
-            "type": "object",
-            "additionalProperties": false,
-            "properties": {
-                "OverrideSpeaker": {
-                    "type": "null"
-                },
-                "Localization_Des": {
-                    "$ref": "#/definitions/Localization"
-                }
-            },
-            "required": [
-                "Localization_Des",
-                "OverrideSpeaker"
-            ],
-            "title": "NarratorData"
+                    "type": "object",
+                    "description": "讲述信息相关的内容",
+                    "title": "The NarratorData Schema",
+                    "required": [
+                        "OverrideSpeaker",
+                        "Localization_Des"
+                    ],
+                    "properties": {
+                        "OverrideSpeaker": {
+                            "anyOf": [{
+                                "type": "string"
+                            },
+                            {
+                                "type": "null"
+                            }],
+                            "description": "对使用的讲述人进行覆写，如果不进行覆写默认为 守秘人。",
+                            "default": null,
+                            "title": "The OverrideSpeaker Schema",
+                            "examples": [
+                                null
+                            ]
+                        },
+                        "Localization_Des": {
+                            "description": "将要讲述的文本内容",
+                            "$ref": "#/definitions/Localization"
+                        }
+                    },
+                    "examples": [{
+                        "OverrideSpeaker": null,
+                        "Localization_Des": {
+                            "TarKey": "a1da95f948f2d615dfbfd0c4678d021e",
+                            "InputText": "留声机中飘出的音乐声隐约让你感到了一丝不协调，就像是刻录的时候出了什么问题。",
+                            "UseCustomParam": false,
+                            "CustomParams": []
+                        }
+                    }],
+                    "defaultSnippets":{
+                        "OverrideSpeaker": null,
+                        "Localization_Des": {
+                            "TarKey": "a1da95f948f2d615dfbfd0c4678d021e",
+                            "InputText": "留声机中飘出的音乐声隐约让你感到了一丝不协调，就像是刻录的时候出了什么问题。",
+                            "UseCustomParam": false,
+                            "CustomParams": []
+                        }
+                    }
         }
     }
 }
