@@ -27,6 +27,154 @@
     },
     "additionalProperties": true,
     "definitions": {
+        
+        "ERoleDataChangeType": {
+            "type": "string",
+            "title": "检验类别",
+            "description": "指定进行的检验类别",
+            "enum": ["None",
+                "Attr",
+                "Extra",
+                "Skill",
+                "Item",
+                "Spec",
+                "SystemAttr"],
+            "default": "None",
+            "defaultSnippets": [
+
+            ]  
+        },
+        "EExploreSkill":
+        {
+            "type": "number",
+            "title": "技能类别",
+            "description": "当检定技能时，指定技能的类别",
+            "enum": [0, 101, 102, 201, 203, 301, 302, 403, 405, 501, 502, 601, 603],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "斗殴",
+                    "body": 101
+                },{
+                    "label": "射击",
+                    "body": 102
+                },{
+                    "label": "运动",
+                    "body": 201
+                },{
+                    "label": "隐匿",
+                    "body": 203
+                },{
+                    "label": "感知",
+                    "body": 301
+                },{
+                    "label": "观察",
+                    "body": 302
+                },{
+                    "label": "交涉",
+                    "body": 403
+                },{
+                    "label": "心理学",
+                    "body": 405
+                },{
+                    "label": "博学",
+                    "body": 501
+                },{
+                    "label": "神秘学",
+                    "body": 502
+                },{
+                    "label": "能工巧匠",
+                    "body": 601
+                },{
+                    "label": "医术",
+                    "body": 603
+                }
+            ]  
+        },
+        "ERoleExtraAttribute":{
+            "type": "number",
+            "title": "技能类别",
+            "description": "当检定技能时，指定技能的类别",
+            "enum": [0, 101, 102, 103, 104, 106, 107, 108, 112, 113, 114, 117, 118, 119],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "当前生命",
+                    "body": 101
+                },{
+                    "label": "当前理智",
+                    "body": 102
+                },{
+                    "label": "当前魔法",
+                    "body": 103
+                },{
+                    "label": "伤害加成",
+                    "body": 104
+                },{
+                    "label": "金钱",
+                    "body": 106
+                },{
+                    "label": "子弹",
+                    "body": 107
+                },{
+                    "label": "幸运",
+                    "body": 108
+                },{
+                    "label": "护甲",
+                    "body": 112
+                },{
+                    "label": "生命上限",
+                    "body": 113
+                },{
+                    "label": "魔法上限",
+                    "body": 114
+                },{
+                    "label": "Parts",
+                    "body": 117
+                },{
+                    "label": "闪避",
+                    "body": 118
+                },{
+                    "label": "速度",
+                    "body": 119
+                }
+            ]
+        },
+        "EHeroAttribute": {
+            "type": "number",
+            "title": "技能类别",
+            "description": "当检定技能时，指定技能的类别",
+            "enum": [0, 1, 2, 3, 4, 6],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "体质",
+                    "body": 1
+                },{
+                    "label": "意志",
+                    "body": 2
+                },{
+                    "label": "智力",
+                    "body": 3
+                },{
+                    "label": "力量",
+                    "body": 4
+                },{
+                    "label": "敏捷",
+                    "body": 6
+                }
+            ]
+        },
+        "ECompareType": {
+            "type": "string",
+            "title": "比较方式",
+            "description": "规定检定成功的条件，即与 CheckValue 的关系",
+            "enum": ["Less",
+                "LessEqual",
+                "Equal",
+                "Greater",
+                "GreaterEqual"]
+        },
         "TextModule": {
             "type": "object",
             "properties": {
@@ -135,7 +283,47 @@
             "required": [
                 "__type",
                 "value"
-            ]
+            ],
+            "defaultSnippets": {
+                "__type" : "MOD.InterludeData,Assembly-CSharp",
+                "value" : {
+                    "ModuleKey" : "暗夜潜行",
+                    "Localization_ModuleName" : {
+                        "TarKey" : "024a1899ea40afc4ff1c52c6f6fd1b5f",
+                        "InputText" : "暗夜潜行",
+                        "UseCustomParam" : false,
+                        "CustomParams" : [
+                            
+                        ]
+                    },
+                    "IsLock" : true,
+                    "StartInterludeInfo" : {
+                        "TarKey" : "ffdd86a870d066d080ccdee181c60acb",
+                        "InputText" : "一位美丽的歌唱家找到了你，她委托你为她寻找自己的亲人\r\n——她失去了童年的记忆，只有一张泛黄的照片告诉她，她并非生来孤独\r\n她的悲惨经历让你触动，同时这趟报酬也足够丰厚",
+                        "UseCustomParam" : false,
+                        "CustomParams" : [
+                            
+                        ]
+                    },
+                    "BGM" : {
+                        "AudioRes" : "Sound\/Audio\/BGM\/Teien\/BGM_09",
+                        "Volume" : 1,
+                        "FadeTime" : 1
+                    },
+                    "NoProfNameList" : [
+                        
+                    ],
+                    "LockCheckList" : [
+                        
+                    ],
+                    "Config" : {
+                        "All" : [
+                            
+                        ]
+                    },
+                    "InterludeCoverPath" : "UI\/Textures\/Atlas\/Map\/ProcessPanel\/TestImage\/幕间测试_电话"
+                }
+            }
         },
         "Interclude": {
             "type": "object",
@@ -215,7 +403,84 @@
                 "Trait_Awards",
                 "Trait_Locks"
             ],
-            "title": "InterludeOption"
+            "title": "InterludeOption",
+            "defaultSnippets": [
+                {
+                    "label": "普通选项",
+                    "body": {
+                        "Localization_BtnDes" : {
+                            "TarKey" : "55215827eaf3f2ffd0ab57d8bbb836d8",
+                            "InputText" : "寻找屋主人",
+                            "UseCustomParam" : false,
+                            "CustomParams" : [
+                                
+                            ]
+                        },
+                        "Localization_BtnTip" : {
+                            "TarKey" : null,
+                            "InputText" : null,
+                            "UseCustomParam" : false,
+                            "CustomParams" : [
+                                
+                            ]
+                        },
+                        "Trait_Locks" : [
+                            
+                        ],
+                        "Trait_Awards" : [
+                            
+                        ],
+                        "Checks" : [
+                            
+                        ],
+                        "Opts" : [
+                            {
+                                "__type" : "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
+                                "TarKey" : "05",
+                                "_baseKey" : "1365527552"
+                            }
+                        ],
+                        "IsCompleteBtn" : false
+                    }
+                },
+                {
+                    "label": "结束幕间选项",
+                    "body": {
+                        "Localization_BtnDes" : {
+                            "TarKey" : "0946c6387f27d1d3876c124329b6e9cd",
+                            "InputText" : "幕间完成",
+                            "UseCustomParam" : false,
+                            "CustomParams" : [
+                                
+                            ]
+                        },
+                        "Localization_BtnTip" : {
+                            "TarKey" : null,
+                            "InputText" : null,
+                            "UseCustomParam" : false,
+                            "CustomParams" : [
+                                
+                            ]
+                        },
+                        "Trait_Locks" : [
+                            
+                        ],
+                        "Trait_Awards" : [
+                            
+                        ],
+                        "Checks" : [
+                            
+                        ],
+                        "Opts" : [
+                            {
+                                "__type" : "InterludeEvent.InterludeCompleteOption,Assembly-CSharp",
+                                "_baseKey" : "-1045734144"
+                            }
+                        ],
+                        "IsCompleteBtn" : true
+                    }
+                }
+            ]
         },
         "Localization": {
             "type": "object",
@@ -358,6 +623,83 @@
                             }
                         }
                     }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.AddRoleRandomTrait,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties": {
+                            "RandomTrait": {
+                                "type": "array",
+                                "default": [],
+                                "title": "固定的特质",
+                                "description": "将数组内的所有特质（ID，在Trait目录可进行对应）加给角色",
+                                "items": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "A Schema",
+                                    "examples": [
+                                        10
+                                    ]
+                                },
+                                "examples": [
+                                    [
+                                        1]
+                                ]
+                            },
+                            "FixedTrait": {
+                                "type": "array",
+                                "default": [],
+                                "title": "随机的特质",
+                                "description": "如果 RandomTrait 为空，则将里面随机一项特质（ID，在Trait目录可进行对应）加给角色",
+                                "items": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "角色的特质",
+                                    "examples": [
+                                        10
+                                    ]},
+                                "examples": [
+                                    []
+                                ]
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.AttrCheck,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "CheckValue": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "需要进行检定对比的值",
+                                "examples": [
+                                    10
+                                ]
+                            },
+                            "CompareType": {
+                                "$ref": "#/definitions/ECompareType"
+                            },
+                            "CheckType": {
+                                "$ref": "#/definitions/ERoleDataChangeType"
+                            },
+                            "SkillType": {
+                                "$ref": "#/definitions/EExploreSkill"
+                            },
+                            "Extra": {
+                                "$ref": "#/definitions/ERoleExtraAttribute"
+                            },
+                            "HeroAttr": {
+                                "$ref": "#/definitions/ERoleExtraAttribute",
+                                "title": "技能类别",
+                                "description": "当检定技能时，指定技能的类别"
+                            }
+                        }
+                    }
                 }
             ],
             "title": "InterludeEvent",
@@ -405,6 +747,32 @@
                             ]
                         },
                         "_baseKey": null
+                    }
+                },
+                {
+                    "label": "增加特质",
+                    "description": "随机，或是指定增加若干项特质",
+                    "body": {
+                        "__type": "InterludeEvent.AddRoleRandomTrait,Assembly-CSharp",
+                        "RandomTrait": [
+                            10003, 10033
+                        ],
+                        "FixedTrait": [],
+                        "_baseKey": null
+                    }
+                },
+                {
+                    "label": "进行能力对比",
+                    "description": "检查指定能力是否达标，并不会进行检定",
+                    "body": {
+                        "__type": "InterludeEvent.AttrCheck,Assembly-CSharp",
+                        "CompareType": "Less",
+                        "CheckType": "Attr",
+                        "SkillType": 101,
+                        "Extra": "CurrentHp",
+                        "HeroAttr": "STR",
+                        "_baseKey": null,
+                        "CheckValue": 10
                     }
                 }
             ],
@@ -493,7 +861,7 @@
                         "type": "null"
                     }],
                     "default": null,
-                    "title": "The SpritePath Schema",
+                    "title": "使用的背景素材路径",
                     "examples": [
                         null
                     ]
@@ -501,7 +869,7 @@
                 "Complete_Opt": {
                     "type": "array",
                     "default": [],
-                    "title": "The Complete_Opt Schema",
+                    "title": "当 RoleDialog 显示完成后会执行的操作。",
                     "items": {
                         "$ref": "#/definitions/InterludeEvent"
                     },
