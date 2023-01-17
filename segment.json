@@ -44,51 +44,103 @@
             ]
         },
         "ERoleSystemAttribute": {
-            "type": "string",
+            "type": "number",
             "title": "角色系统能力类别",
             "description": "标记部分特殊能力的类别",
-            "enum": [ "None",
-                "SanFailRatio",
-                "ConceptRecoverSan",
-                "MaxSan",
-                "GreatSuccessBorder",
-                "GreatFailBorder",
-                "IsCanUseFood",
-                "SanWeaknessBorder",
-                "SanCollapseBorder",
-                "PersonUseSan",
-                "AddDiceConsume",
-                "SanNormalBorder"],
-            "default": "None"
+            "enum": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "SanFailRatio",
+                    "body": 1
+                },{
+                    "label": "ConceptRecoverSan",
+                    "body": 2
+                },{
+                    "label": "MaxSan",
+                    "body": 3
+                },{
+                    "label": "GreatSuccessBorder",
+                    "body": 4
+                },{
+                    "label": "GreatFailBorder",
+                    "body": 5
+                },{
+                    "label": "IsCanUseFood",
+                    "body": 6
+                },{
+                    "label": "SanWeaknessBorder",
+                    "body": 7
+                },{
+                    "label": "SanCollapseBorder",
+                    "body": 8
+                },{
+                    "label": "PersonUseSan",
+                    "body": 9
+                },{
+                    "label": "AddDiceConsume",
+                    "body": 10
+                },{
+                    "label": "SanNormalBorder",
+                    "body": 11
+                }
+            ]
         },
         "ERoleDataChangeType": {
-            "type": "string",
+            "type": "number",
             "title": "检验类别",
             "description": "指定进行的检验类别",
-            "enum": ["None",
-                "Attr",
-                "Extra",
-                "Skill",
-                "Item",
-                "Spec",
-                "SystemAttr"],
-            "default": "None",
+            "enum": [0, 1, 2, 3, 4, 5, 6],
+            "default": 0,
             "defaultSnippets": [
-
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Attr",
+                    "body": 1
+                },{
+                    "label": "Extra",
+                    "body": 2
+                },{
+                    "label": "Skill",
+                    "body": 3
+                },{
+                    "label": "Item",
+                    "body": 4
+                },{
+                    "label": "Spec",
+                    "body": 5
+                },{
+                    "label": "SystemAttr",
+                    "body": 6
+                }
             ]  
         },
         "ECalculationType": {
-            "type": "string",
+            "type": "number",
             "title": "计算类别",
             "description": "指定使用的表达式（=,+=,-=）",
-            "enum": ["None",
-                "Attr",
-                "Extra",
-                "Skill",
-                "Item",
-                "Spec",
-                "SystemAttr"],
-            "default": "None"
+            "enum": [0, 1, 2, 3],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "SanFailRatio",
+                    "body": 1
+                },{
+                    "label": "ConceptRecoverSan",
+                    "body": 2
+                },{
+                    "label": "MaxSan",
+                    "body": 3
+                }
+            ]  
         },
         "EExploreSkill":
         {
@@ -621,23 +673,47 @@
                 }
         },
         "ECompareType": {
-            "type": "string",
+            "type": "number",
             "title": "比较方式",
             "description": "规定检定成功的条件，即与 CheckValue 的关系",
-            "enum": ["Less",
-                "LessEqual",
-                "Equal",
-                "Greater",
-                "GreaterEqual"]
+            "enum": [0, 1, 2, 3, 4],
+            "defaultSnippets": [
+                {
+                    "label": "Less",
+                    "body": 0
+                },{
+                    "label": "LessEqual",
+                    "body": 1
+                },{
+                    "label": "Equal",
+                    "body": 2
+                },{
+                    "label": "Greater",
+                    "body": 3
+                },{
+                    "label": "GreaterEqual",
+                    "body": 4
+                }
+            ]
         },
         "EAddChangeMode": {
-            "type": "string",
+            "type": "number",
             "title": "操作方式",
             "description": "用于标记是增加还是移除",
-            "enum": ["None",
-                "Add",
-                "Remove",
-                "SetLayer"]
+            "enum": [0, 1, 2, 3],
+            "defaultSnippets": [{
+                "label": "None",
+                "body": 0
+            },{
+                "label": "Add",
+                "body": 1
+            },{
+                "label": "Remove",
+                "body": 2
+            },{
+                "label": "SetLayer",
+                "body": 3
+            }]
         },
         "TextModule": {
             "type": "object",
@@ -1264,6 +1340,93 @@
                             }
                         }
                     }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.CheckOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "CheckList": {
+                                "type": "array",
+                                "default": [],
+                                "title": "检查条件列表",
+                                "description": "仅当所有条件成立时，会执行成功时的操作。",
+                                "items": {
+                                    "$ref": "#/definitions/InterludeBranchCheck"
+                                }
+                            },
+                            "OptionSucList": {
+                                "type": "array",
+                                "default": [],
+                                "title": "成功时执行的操作列表",
+                                "items": {
+                                    "$ref": "#/definitions/InterludeEvent"
+                                }
+                            },
+                            "OptionFailList": {
+                                "type": "array",
+                                "default": [],
+                                "title": "失败时执行的操作列表",
+                                "items": {
+                                    "$ref": "#/definitions/InterludeEvent"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.DiceCheckOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "CheckType": {
+                                "$ref": "#/definitions/ERoleDataChangeType"
+                            },
+                            "SkillType": {
+                                "$ref": "#/definitions/EExploreSkill"
+                            },
+                            "HeroAttr": {
+                                "$ref": "#/definitions/ERoleExtraAttribute",
+                                "title": "技能类别",
+                                "description": "当检定技能时，指定技能的类别"
+                            },
+                            "OptionSucList": {
+                                "type": "array",
+                                "default": [],
+                                "title": "成功时执行的操作列表",
+                                "items": {
+                                    "$ref": "#/definitions/InterludeEvent"
+                                }
+                            },
+                            "OptionFailList": {
+                                "type": "array",
+                                "default": [],
+                                "title": "失败时执行的操作列表",
+                                "items": {
+                                    "$ref": "#/definitions/InterludeEvent"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.SaveRecordOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "RecordKey": {
+                                "type": "string",
+                                "default": "0",
+                                "title": "要保存的记录名（之后可以通过RecordCheck检查）",
+                                "examples": [
+                                    "114514"
+                                ]
+                            }
+                        }
+                    }
                 }
             ],
             "title": "InterludeEvent",
@@ -1433,6 +1596,123 @@
                         "_baseKey": null,
                         "ChangeMode": "Increase",
                         "Point": 114514
+                    }
+                },
+                {
+                    "label": "条件分支",
+                    "description": "判断条件是否成立，以执行不同的逻辑",
+                    "body": {
+                        "__type" : "InterludeEvent.CheckOption,Assembly-CSharp",
+						"CheckList" : [
+							{
+								"__type" : "InterludeEvent.RecordCheck,Assembly-CSharp",
+								"type" : 0,
+								"TarKey" : "衣柜成功"
+							}
+						],
+						"OptionSucList" : [
+							{
+								"__type" : "InterludeEvent.ShowCenterDialogOption,Assembly-CSharp",
+								"Localization_Dialog" : {
+									"Sound" : null,
+									"NarratorData" : {
+										"OverrideSpeaker" : null,
+										"Localization_Des" : {
+											"TarKey" : "f82f71087f45d59843df6781d5fbf472",
+											"InputText" : "这些衣物类型各异，看起来男女老少皆有，还有一些整齐整理好的童装。而且，年代和身份都相差了不少。\r",
+											"UseCustomParam" : false,
+											"CustomParams" : [
+												
+											]
+										}
+									},
+									"RoleDialog" : null,
+									"SpritePath" : null,
+									"Complete_Opt" : [
+														
+									]
+								},
+								"_baseKey" : null
+							}
+						],
+						"OptionFailList" : []
+                    }
+                },
+                {
+                    "label": "骰子检定",
+                    "body": {
+                        "__type" : "InterludeEvent.DiceCheckOption,Assembly-CSharp",
+                        "CheckType" : 3,
+                        "SkillType" : 302,
+                        "HeroAttr" : 0,
+                        "SucOpt" : [
+                            {
+                                "__type" : "InterludeEvent.ShowCenterDialogOption,Assembly-CSharp",
+                                "Localization_Dialog" : {
+                                    "Sound" : null,
+                                    "NarratorData" : {
+                                        "OverrideSpeaker" : null,
+                                        "Localization_Des" : {
+                                            "TarKey" : "f82f71087f45d59843df6781d5fbf472",
+                                            "InputText" : "这些衣物类型各异，看起来男女老少皆有，还有一些整齐整理好的童装。而且，年代和身份都相差了不少。\r",
+                                            "UseCustomParam" : false,
+                                            "CustomParams" : [
+                                                
+                                            ]
+                                        }
+                                    },
+                                    "RoleDialog" : null,
+                                    "SpritePath" : null,
+                                    "Complete_Opt" : [
+                                        {
+                                            "__type" : "InterludeEvent.SaveRecordOption,Assembly-CSharp",
+                                            "RecordKey" : "衣柜成功",
+                                            "_baseKey" : null
+                                        }
+                                    ]
+                                },
+                                "_baseKey" : null
+                            }
+                        ],
+                        "FailOpt" : [
+                            {
+                                "__type" : "InterludeEvent.ShowCenterDialogOption,Assembly-CSharp",
+                                "Localization_Dialog" : {
+                                    "Sound" : null,
+                                    "NarratorData" : {
+                                        "OverrideSpeaker" : null,
+                                        "Localization_Des" : {
+                                            "TarKey" : "130addfbfe13e23a59f955e70907f3d6",
+                                            "InputText" : "你扫了一眼这些衣服，由于种类太多甚至让你觉得有些眼花缭乱。\n印象中，只有服装店才会有这么多乱七八糟的衣服。",
+                                            "UseCustomParam" : false,
+                                            "CustomParams" : [
+                                                
+                                            ]
+                                        }
+                                    },
+                                    "RoleDialog" : null,
+                                    "SpritePath" : null,
+                                    "Complete_Opt" : [
+                                        {
+                                            "__type" : "InterludeEvent.SaveRecordOption,Assembly-CSharp",
+                                            "RecordKey" : "衣柜失败",
+                                            "_baseKey" : null
+                                        }
+                                    ]
+                                },
+                                "_baseKey" : null
+                            }
+                        ],
+                        "_baseKey" : "-1824381952"
+                    }
+                },
+                {
+                    "label": "添加记录",
+                    "description": "添加激活特定剧情的记录，可在之后用于Check",
+                    "body": {
+                        "__type" : "InterludeEvent.SaveRecordOption,Assembly-CSharp",
+                        "RecordKey" : "衣柜成功",
+                        "_baseKey" : null
                     }
                 }
             ],
@@ -1644,6 +1924,41 @@
                             "CustomParams": []
                         }
                     }
+        },
+        "InterludeBranchCheck":{
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "__type": {
+                    "type": "string",
+                    "description": "对应的具体类型，不同的类型包含不同的参数，以及不同的功能",
+                    "examples": [
+                        "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
+                        "InterludeEvent.SetInterludeTxtBg,Assembly-CSharp",
+                        "InterludeEvent.ShowCenterDialogOption,Assembly-CSharp"
+                    ]
+                },
+                "_baseKey": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "内部用于标记同一个对象的标记，一般而言同一个文本可以设为相同值。"
+                }
+            },
+            "anyOf": [
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                    }
+                }
+            ]
         }
     }
 }
