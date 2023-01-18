@@ -27,6 +27,46 @@
     },
     "additionalProperties": true,
     "definitions": {
+        "AudioClipData": {
+                    "anyOf": [{
+                        "type": "object",
+                        "properties": {
+                            "AudioRes": {
+                                "type": "string",
+                                "default": "",
+                                "title": "AudioClip 的路径",
+                                "examples": [
+                                    "Sound/Audio/FX/DOOR/DOOR_Indoor_Wood_Open_stereo"
+                                ]
+                            },
+                            "Volume": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "音量",
+                                "examples": [
+                                    1
+                                ]
+                            },
+                            "FadeTime": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "渐入渐出时间",
+                                "examples": [
+                                    1
+                                ]
+                            }
+                        }
+                    },
+                    {
+                        "type": "null"
+                    }],
+                    "default": null,
+                    "description": "播放特定的声音。",
+                    "title": "The Sound Schema",
+                    "examples": [
+                        null
+                    ]
+        },
         "DiceString": {
             "anyOf": [
                 {
@@ -41,6 +81,28 @@
             "description": "格式为 +/- 符号分隔的一组字符， 1D6 代表一个6面骰子，使用 +/- 号组合时代表同时骰出若干个骰子。",
             "examples": [
                 "1D3+1"
+            ]
+        },
+        "ELifeState": {
+            "type": "number",
+            "title": "角色健康状态类别",
+            "description": "标记角色是否健康",
+            "enum": [ 0, 1, 2, 3],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Healthy",
+                    "body": 1
+                },{
+                    "label": "SevereWound",
+                    "body": 2
+                },{
+                    "label": "Death",
+                    "body": 3
+                }
             ]
         },
         "ERoleSystemAttribute": {
@@ -1116,7 +1178,7 @@
                         "properties": {
                             "TarKey": {
                                 "type": "string",
-                                "description": "转到指定的一个章节（ChooseKey名）"
+                                "description": "转到指定的一个章节(ChooseKey名)"
                             }
                         }
                     }
@@ -1203,40 +1265,6 @@
                                 "examples": [
                                     []
                                 ]
-                            }
-                        }
-                    }
-                },
-                {
-                    "if": {
-                        "properties": { "__type": { "const": "InterludeEvent.AttrCheck,Assembly-CSharp" } }
-                    },
-                    "then": {
-                        "properties":{
-                            "CheckValue": {
-                                "type": "integer",
-                                "default": 0,
-                                "title": "需要进行检定对比的值",
-                                "examples": [
-                                    10
-                                ]
-                            },
-                            "CompareType": {
-                                "$ref": "#/definitions/ECompareType"
-                            },
-                            "CheckType": {
-                                "$ref": "#/definitions/ERoleDataChangeType"
-                            },
-                            "SkillType": {
-                                "$ref": "#/definitions/EExploreSkill"
-                            },
-                            "Extra": {
-                                "$ref": "#/definitions/ERoleExtraAttribute"
-                            },
-                            "HeroAttr": {
-                                "$ref": "#/definitions/ERoleExtraAttribute",
-                                "title": "技能类别",
-                                "description": "当检定技能时，指定技能的类别"
                             }
                         }
                     }
@@ -1427,6 +1455,47 @@
                             }
                         }
                     }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.PlayAudioOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "Sound": {
+                                "$ref": "#/definitions/AudioClipData"
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.SwitchBgmOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "Sound": {
+                                "$ref": "#/definitions/AudioClipData"
+                            }               
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.SanCheckOption,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "SuccessValue": {
+                                "$ref": "#/definitions/DiceString",
+                                "title": "成功时的 San 值变动（骰）"
+                            },
+                            "FailValue": {
+                                "$ref": "#/definitions/DiceString",
+                                "title": "失败时的 San 值变动（骰）"
+                            }
+                        }
+                    }
                 }
             ],
             "title": "InterludeEvent",
@@ -1486,20 +1555,6 @@
                         ],
                         "FixedTrait": [],
                         "_baseKey": null
-                    }
-                },
-                {
-                    "label": "进行能力对比",
-                    "description": "检查指定能力是否达标，并不会进行检定",
-                    "body": {
-                        "__type": "InterludeEvent.AttrCheck,Assembly-CSharp",
-                        "CompareType": "Less",
-                        "CheckType": "Attr",
-                        "SkillType": 101,
-                        "Extra": "CurrentHp",
-                        "HeroAttr": "STR",
-                        "_baseKey": null,
-                        "CheckValue": 10
                     }
                 },
                 {
@@ -1714,6 +1769,34 @@
                         "RecordKey" : "衣柜成功",
                         "_baseKey" : null
                     }
+                },
+                {
+                    "label": "播放声音",
+                    "description": "播放特定的声音片段",
+                    "body": {
+                        "__type" : "InterludeEvent.PlayAudioOption,Assembly-CSharp",
+                        "Sound" : null,
+                        "_baseKey" : null
+                    }
+                },
+                {
+                    "label": "进行理智检定",
+                    "description": "请,San Check",
+                    "body": {
+                        "__type" : "InterludeEvent.SanCheckOption,Assembly-CSharp",
+                        "SuccessValue" : "0",
+                        "FailValue" : "1",
+                        "_baseKey" : null
+                    }
+                },
+                {
+                    "label": "播放BGM",
+                    "description": "播放特定的背景音乐",
+                    "body": {
+                        "__type" : "InterludeEvent.SwitchBgmOption,Assembly-CSharp",
+                        "Sound" : null,
+                        "_baseKey" : null
+                    }
                 }
             ],
             "required": [
@@ -1726,44 +1809,7 @@
             "additionalProperties": false,
             "properties":{
                 "Sound": {
-                    "anyOf": [{
-                        "type": "object",
-                        "properties": {
-                            "AudioRes": {
-                                "type": "string",
-                                "default": "",
-                                "title": "AudioClip 的路径",
-                                "examples": [
-                                    "Sound/Audio/FX/DOOR/DOOR_Indoor_Wood_Open_stereo"
-                                ]
-                            },
-                            "Volume": {
-                                "type": "integer",
-                                "default": 0,
-                                "title": "音量",
-                                "examples": [
-                                    1
-                                ]
-                            },
-                            "FadeTime": {
-                                "type": "integer",
-                                "default": 0,
-                                "title": "渐入渐出时间",
-                                "examples": [
-                                    1
-                                ]
-                            }
-                        }
-                    },
-                    {
-                        "type": "null"
-                    }],
-                    "default": null,
-                    "description": "声音-暂时用途不明。",
-                    "title": "The Sound Schema",
-                    "examples": [
-                        null
-                    ]
+                    "$ref": "#/definitions/AudioClipData"
                 },
                 "NarratorData": {
                     "anyOf": [{
@@ -1933,7 +1979,7 @@
                     "type": "string",
                     "description": "对应的具体类型，不同的类型包含不同的参数，以及不同的功能",
                     "examples": [
-                        "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp",
+                        "InterludeEvent.AttrCheck,Assembly-CSharp",
                         "InterludeEvent.SetInterludeTxtBg,Assembly-CSharp",
                         "InterludeEvent.ShowCenterDialogOption,Assembly-CSharp"
                     ]
@@ -1953,9 +1999,193 @@
             "anyOf": [
                 {
                     "if": {
-                        "properties": { "__type": { "const": "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp" } }
+                        "properties": { "__type": { "const": "InterludeEvent.AttrCheck,Assembly-CSharp" } }
                     },
                     "then": {
+                        "properties":{
+                            "CheckValue": {
+                                "type": "integer",
+                                "default": 0,
+                                "title": "需要进行检定对比的值",
+                                "examples": [
+                                    10
+                                ]
+                            },
+                            "CompareType": {
+                                "$ref": "#/definitions/ECompareType"
+                            },
+                            "CheckType": {
+                                "$ref": "#/definitions/ERoleDataChangeType"
+                            },
+                            "SkillType": {
+                                "$ref": "#/definitions/EExploreSkill"
+                            },
+                            "Extra": {
+                                "$ref": "#/definitions/ERoleExtraAttribute"
+                            },
+                            "HeroAttr": {
+                                "$ref": "#/definitions/ERoleExtraAttribute",
+                                "title": "技能类别",
+                                "description": "当检定技能时，指定技能的类别"
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.InterludeLifeStateCheck,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "State": {
+                                "$ref": "#/definitions/ELifeState"
+                            },
+                            "Type": {
+                                "type": "number",
+                                "title": "检查存在/不存在",
+                                "enum": [ 0, 1],
+                                "default": 0,
+                                "defaultSnippets": [
+                                    {
+                                        "label": "存在",
+                                        "body": 0
+                                    },{
+                                        "label": "不存在",
+                                        "body": 1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.InterludeRoleProfessionCheck,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "TarProfessionId": {
+                                "type": "number",
+                                "title": "要检查的职业ID",
+                                "default": 0
+                            },
+                            "Type": {
+                                "type": "number",
+                                "title": "检查是/不是",
+                                "enum": [ 0, 1],
+                                "default": 0,
+                                "defaultSnippets": [
+                                    {
+                                        "label": "存在",
+                                        "body": 0
+                                    },{
+                                        "label": "不存在",
+                                        "body": 1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.RecordCheck,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "TarKey": {
+                                "type": "string",
+                                "title": "要检查的记录名(参照SaveRecordOption中的配置)",
+                                "default": ""
+                            },
+                            "Type": {
+                                "type": "number",
+                                "title": "检查是/不是",
+                                "enum": [ 0, 1],
+                                "default": 0,
+                                "defaultSnippets": [
+                                    {
+                                        "label": "存在",
+                                        "body": 0
+                                    },{
+                                        "label": "不存在",
+                                        "body": 1
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "InterludeEvent.SpacePointCheck,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "properties":{
+                            "Point": {
+                                "type": "number",
+                                "title": "要对比的数字",
+                                "default": 0
+                            },
+                            "CompareType": {
+                                "$ref": "#/definitions/ECompareType"
+                            }
+                        }
+                    }
+                }
+            ],
+            "defaultSnippets": [
+                {
+                    "label": "进行能力对比",
+                    "description": "检查指定能力是否达标，并不会进行检定",
+                    "body": {
+                        "__type": "InterludeEvent.AttrCheck,Assembly-CSharp",
+                        "CompareType": 0,
+                        "CheckType": 0,
+                        "SkillType": 101,
+                        "Extra": 0,
+                        "HeroAttr": 1,
+                        "_baseKey": null,
+                        "CheckValue": 10
+                    }
+                },
+                {
+                    "label": "检查生命状态",
+                    "description": "检查是否为重伤等",
+                    "body": {
+                        "__type": "InterludeEvent.InterludeLifeStateCheck,Assembly-CSharp",
+                        "State": 0,
+                        "Type": 1,
+                        "_baseKey": null
+                    }
+                },
+                {
+                    "label": "检查职业",
+                    "description": "检查是否为特定职业",
+                    "body": {
+                        "__type": "InterludeEvent.InterludeRoleProfessionCheck,Assembly-CSharp",
+                        "TarProfessionId": 3,
+                        "Type": 1,
+                        "_baseKey": null
+                    }
+                },
+                {
+                    "label": "检查记录",
+                    "description": "检查在这次幕间中是否存储了特定记录",
+                    "body": {
+                        "__type": "InterludeEvent.RecordCheck,Assembly-CSharp",
+                        "TarKey": "关注永雏塔菲喵",
+                        "Type": 1,
+                        "_baseKey": null
+                    }
+                },
+                {
+                    "label": "检查SpacePoint",
+                    "body": {
+                        "__type": "InterludeEvent.RecordCheck,Assembly-CSharp",
+                        "Point": 10,
+                        "CompareType": 1,
+                        "_baseKey": null
                     }
                 }
             ]

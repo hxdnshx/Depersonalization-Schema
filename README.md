@@ -3,7 +3,7 @@
 
 # 完成状况
 
-- [ ] TextModule <---- 整理中
+- [X] TextModule 
 - [ ] Achievement
 - [ ] BattleSkill
 - [ ] Buff
@@ -13,7 +13,7 @@
 - [ ] HelpSystemData
 - [ ] InterludeStudy
 - [ ] InterludeVacat
-- [ ] Item
+- [ ] Item <---- 整理中
 - [ ] ItemProcess
 - [ ] Magic
 - [ ] MonsterBattleSkill
