@@ -2554,6 +2554,15 @@
         },
         "ItemData": {
             "type": "object",
+            "required": ["value"],
+            "properties": {
+                "value": {
+                    "$ref": "#/definitions/ItemDataImpl"
+                }
+            }
+        },
+        "ItemDataImpl": {
+            "type": "object",
             "default": {},
             "title": "Root Schema",
             "additionalProperties": true,
