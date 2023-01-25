@@ -14,13 +14,21 @@
                     "description": "对应的类型，在根部固定为 MOD.InterludeData,Assembly-CSharp",
                     "default": "MOD.InterludeData,Assembly-CSharp"
                 }},
-            "anyOf": [
+            "allOf": [
                 {
                     "if": {
                         "properties": { "__type": { "const": "MOD.InterludeData,Assembly-CSharp" } }
                     },
                     "then": {
                         "$ref": "#/definitions/TextModule"
+                    }
+                },
+                {
+                    "if": {
+                        "properties": { "__type": { "const": "MOD.ItemData,Assembly-CSharp" } }
+                    },
+                    "then": {
+                        "$ref": "#/definitions/ItemData"
                     }
                 }]
         }
@@ -179,6 +187,215 @@
                 },{
                     "label": "SystemAttr",
                     "body": 6
+                }
+            ]  
+        },
+        "ESheetType": {
+            "type": "number",
+            "title": "从哪一个信息表获得ID/名称信息",
+            "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Career",
+                    "body": 1
+                },{
+                    "label": "Trait",
+                    "body": 2
+                },{
+                    "label": "Trait_Reward",
+                    "body": 3
+                },{
+                    "label": "Trait_Limit",
+                    "body": 4
+                },{
+                    "label": "Buff",
+                    "body": 5
+                },{
+                    "label": "Magic",
+                    "body": 6
+                },{
+                    "label": "Item",
+                    "body": 7
+                },{
+                    "label": "RoleSkill",
+                    "body": 8
+                },{
+                    "label": "MonsterSkill",
+                    "body": 9
+                }
+            ]  
+        },
+        "EItemDesignTag": {
+            "type": "number",
+            "title": "内部对物品的标记信息",
+            "enum": [0, 1, 2, 3, 4],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Common - 普通物品",
+                    "body": 1
+                },{
+                    "label": "Story - 剧情物品",
+                    "body": 2
+                },{
+                    "label": "Deprecated - 过期物品",
+                    "body": 3
+                },{
+                    "label": "UnCommon - 特殊物品",
+                    "body": 4
+                }
+            ]  
+        },
+        "EItemType": {
+            "type": "number",
+            "title": "物品类型",
+            "enum": [0, 1, 2, 3],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Item",
+                    "body": 1
+                },{
+                    "label": "Weapon - 武器",
+                    "body": 2
+                },{
+                    "label": "Equipe - 可装备物品",
+                    "body": 3
+                }
+            ]  
+        },
+        "EItemAttr": {
+            "type": "number",
+            "title": "物品的行为标记",
+            "enum": [0, 1, 2, 3, 4, 5, 6],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Only - 唯一",
+                    "body": 1
+                },{
+                    "label": "StoryProp - 剧情物品",
+                    "body": 2
+                },{
+                    "label": "Mythical",
+                    "body": 3
+                },{
+                    "label": "Mystical",
+                    "body": 4
+                },{
+                    "label": "CanThrow - 可投掷",
+                    "body": 5
+                },{
+                    "label": "CannotSell - 不可出售",
+                    "body": 6
+                }
+            ]  
+        },
+        "EItemStaticAffixType": {
+            "type": "number",
+            "title": "物品的静态属性信息",
+            "enum": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "LightSource",
+                    "body": 1
+                },{
+                    "label": "FireSource",
+                    "body": 2
+                },{
+                    "label": "Inflammable",
+                    "body": 3
+                },{
+                    "label": "Explosive",
+                    "body": 4
+                },{
+                    "label": "Electric",
+                    "body": 5
+                },{
+                    "label": "Paralysis",
+                    "body": 6
+                },{
+                    "label": "BreakAction",
+                    "body": 7
+                },{
+                    "label": "LightFire",
+                    "body": 8
+                },{
+                    "label": "Perceive",
+                    "body": 9
+                }
+            ]  
+        },
+        "EItemDynamicAffixType": {
+            "type": "number",
+            "title": "物品的动态属性信息",
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Bleed",
+                    "body": 1
+                },{
+                    "label": "Fracture",
+                    "body": 2
+                },{
+                    "label": "ArmorPiercing",
+                    "body": 3
+                },{
+                    "label": "ArmorDestory",
+                    "body": 4
+                },{
+                    "label": "IncreaseDamage",
+                    "body": 5
+                },{
+                    "label": "DecreaseDamage",
+                    "body": 6
+                },{
+                    "label": "AddArmor",
+                    "body": 7
+                },{
+                    "label": "RemoveArmor",
+                    "body": 8
+                },{
+                    "label": "RewardRoll",
+                    "body": 9
+                },{
+                    "label": "PunishRoll",
+                    "body": 10
+                },{
+                    "label": "ValueIncrease",
+                    "body": 11
+                },{
+                    "label": "ValueDecrease",
+                    "body": 12
+                },{
+                    "label": "AddCharge",
+                    "body": 13
+                },{
+                    "label": "RemoveCharge",
+                    "body": 14
+                },{
+                    "label": "Poison",
+                    "body": 15
                 }
             ]  
         },
@@ -1971,6 +2188,151 @@
                         }
                     }
         },
+        "AffixData": {
+            "type": "object",
+            "default": {},
+            "title": "Affix",
+            "required": [
+                "IsStatic",
+                "StaticAffixType",
+                "DynamicAffixType",
+                "Level",
+                "Attr",
+                "Skill",
+                "ExtraAttr"
+            ],
+            "properties": {
+                "IsStatic": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "是否是静态特性（静态特性不存在等级）",
+                    "examples": [
+                        false
+                    ]
+                },
+                "StaticAffixType": {
+                    "$ref": "#/definitions/EItemStaticAffixType"
+                },
+                "DynamicAffixType": {
+                    "$ref": "#/definitions/EItemDynamicAffixType"
+                },
+                "Level": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "等级（只有Dynamic有等级）",
+                    "examples": [
+                        1
+                    ]
+                },
+                "Attr": {
+                    "type": "array",
+                    "default": [],
+                    "title": "相关能力",
+                    "items": {
+                        "$ref": "#/definitions/EHeroAttribute"
+                    },
+                    "examples": [
+                        []
+                    ]
+                },
+                "Skill": {
+                    "type": "array",
+                    "default": [],
+                    "title": "相关探索能力",
+                    "items": {
+                        "$ref": "#/definitions/EExploreSkill"
+                    },
+                    "examples": [
+                        []
+                    ]
+                },
+                "ExtraAttr": {
+                    "type": "array",
+                    "default": [],
+                    "title": "状态类别",
+                    "items": {
+                        "$ref": "#/definitions/ERoleExtraAttribute"
+                    },
+                    "examples": [
+                        []
+                    ]
+                }
+            },
+            "examples": [{
+                "IsStatic": false,
+                "StaticAffixType": 0,
+                "DynamicAffixType": 1,
+                "Level": 1,
+                "Attr": [],
+                "Skill": [],
+                "ExtraAttr": []
+            }]
+        },
+        "ItemDisassembleData": {
+            "type": "object",
+            "default": {},
+            "title": "关于道具分解后的信息",
+            "required": [
+                "Items",
+                "PartsCount"
+            ],
+            "properties": {
+                "Items": {
+                    "type": "object",
+                    "default": {},
+                    "title": "分解道具的信息",
+                    "required": [
+                        "Type",
+                        "Names",
+                        "Ids"
+                    ],
+                    "properties": {
+                        "Type": {
+                            "$ref": "#/definitions/ESheetType"
+                        },
+                        "Names": {
+                            "type": "array",
+                            "default": [],
+                            "title": "无用途，这个字段是对编辑器开放的",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "Ids": {
+                            "type": "array",
+                            "default": [],
+                            "title": "分解成为的物品的ID（给一份对应的物品，充能数量为默认值）",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "Type": 0,
+                        "Names": [],
+                        "Ids": [ 1029 ]
+                    }]
+                },
+                "PartsCount": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "分解后获得的零件数量",
+                    "examples": [
+                        0
+                    ]
+                }
+            },
+            "defaultSnippets": {
+                "Items": {
+                    "Type": 0,
+                    "Names": [],
+                    "Ids": []
+                },
+                "PartsCount": 0
+            }
+        },
         "InterludeBranchCheck":{
             "type": "object",
             "additionalProperties": true,
@@ -2189,6 +2551,1064 @@
                     }
                 }
             ]
+        },
+        "ItemData": {
+            "type": "object",
+            "default": {},
+            "title": "Root Schema",
+            "additionalProperties": true,
+            "required": [
+                "IconPath",
+                "ItemId",
+                "ItemName",
+                "ItemDes",
+                "ItemEffectDes",
+                "TagList",
+                "Price",
+                "ChargingCount",
+                "AutoDestruct",
+                "IsCantDisboard",
+                "Disassemble",
+                "DesignTag",
+                "ItemAttrValue",
+                "MythicalId",
+                "ItemType",
+                "ItemStaticAffixList",
+                "ItemDynamicAffixList",
+                "EquipmentConfigData",
+                "ConfigData",
+                "ThrowConfigData",
+                "IsBindCharacter",
+                "EndingOpts"
+            ],
+            "properties": {
+                "IconPath": {
+                    "type": "string",
+                    "default": "",
+                    "title": "这个技能的图标的地址",
+                    "examples": [
+                        "UI/Textures/Icon/BattleSkill/icon_battleSkill_ouda"
+                    ]
+                },
+                "ItemId": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "这个物品在系统内的唯一编号",
+                    "description": "建议为 <(创意工坊ID % 1000000000)/4000*4000> ± 2000 的区间",
+                    "examples": [
+                        100
+                    ]
+                },
+                "ItemName": {
+                    "$ref": "#/definitions/Localization",
+                    "description": "这个物品的名称",
+                    "defaultSnippets": {
+                        "TarKey": "35709f640e2ea34563be766a81b32b11",
+                        "InputText": "赤手空拳",
+                        "UseCustomParam": false,
+                        "CustomParams": [
+                
+                        ]
+                    }
+                },
+                "ItemDes": {
+                    "$ref": "#/definitions/Localization",
+                    "description": "这个物品的介绍信息",
+                    "defaultSnippets": {
+                        "TarKey": "78d2e6d5a3d40d5ef812144a17821d0b",
+                        "InputText": "两手空空，能依赖的就只有自己的拳头了",
+                        "UseCustomParam": false,
+                        "CustomParams": []
+                    }
+                },
+                "ItemEffectDes": {
+                    "$ref": "#/definitions/Localization",
+                    "description": "这个物品的效果介绍信息",
+                    "defaultSnippets": {
+                        "TarKey": "78d2e6d5a3d40d5ef812144a17821d0b",
+                        "InputText": "两手空空，能依赖的就只有自己的拳头了",
+                        "UseCustomParam": false,
+                        "CustomParams": []
+                    }
+                },
+                "TagList": {
+                    "type": "array",
+                    "default": [],
+                    "title": "物品的分类信息",
+                    "descrpiton": "对这个物品的分类，可以在 <ItemCheck> <ItemChangeOption> 中通过这个分类的字符串进行筛选。",
+                    "items": {
+                        "type": "string"
+                    },
+                    "examples": [
+                        []
+                    ]
+                },
+                "Price": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "商品价格",
+                    "examples": [
+                        0
+                    ]
+                },
+                "ChargingCount": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "这个物品的可使用次数（最多为10）",
+                    "examples": [
+                        0
+                    ]
+                },
+                "AutoDestruct": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "在可使用次数为0的场合，是否自动摧毁这个物品",
+                    "examples": [
+                        false
+                    ]
+                },
+                "IsCantDisboard": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "是否可卸下",
+                    "description": "这个道具是否可以在装备的场合被卸下，为true的场合不可被卸下。",
+                    "examples": [
+                        false
+                    ]
+                },
+                "Disassemble": {
+                    "$ref": "#/definitions/ItemDisassembleData"
+                },
+                "DesignTag": {
+                    "$ref": "#/definitions/EItemDesignTag"
+                },
+                "ItemAttrValue": {
+                    "type": "array",
+                    "default": [],
+                    "title": "物品的特征列表",
+                    "items": {
+                        "$ref": "#/definitions/EItemAttr"
+                    },
+                    "examples": [
+                        []
+                    ]
+                },
+                "MythicalId": {
+                    "type": "integer",
+                    "default": 0,
+                    "title": "对应的传奇物品（MythicalItem目录下相关定义）编号",
+                    "examples": [
+                        0
+                    ]
+                },
+                "ItemType": {
+                    "$ref": "#/definitions/EItemType"
+                },
+                "ItemStaticAffixList": {
+                    "type": "array",
+                    "default": [],
+                    "title": "静态信息定义",
+                    "items": {
+                        "$ref": "#/definitions/AffixData"
+                    },
+                    "examples": [
+                        []
+                    ]
+                },
+                "ItemDynamicAffixList": {
+                    "type": "array",
+                    "default": [],
+                    "title": "动态信息定义",
+                    "items": {
+                        "$ref": "#/definitions/AffixData"
+                    },
+                    "examples": [
+                        []
+                    ]
+                },
+                "EquipmentConfigData": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The EquipmentConfigData Schema",
+                    "required": [
+                        "__type",
+                        "WeaponTypes",
+                        "CheckSkill",
+                        "UniteCheckSkill",
+                        "DiceCheckType",
+                        "ResultCheckType",
+                        "DoubleWeapon",
+                        "TargetSelect",
+                        "AttackType",
+                        "AttackCount",
+                        "ContinuousAttackCount",
+                        "Damage",
+                        "NeedReloadEffect",
+                        "ReloadEffect",
+                        "InfoDatas",
+                        "EnableOverrideDesc",
+                        "OverrideDesc",
+                        "Arrts",
+                        "Skills",
+                        "Def"
+                    ],
+                    "properties": {
+                        "__type": {
+                            "type": "string",
+                            "default": "",
+                            "title": "The __type Schema",
+                            "examples": [
+                                "MOD.WeaponConfigData,Assembly-CSharp"
+                            ]
+                        },
+                        "WeaponTypes": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The WeaponTypes Schema",
+                            "items": {
+                                "type": "integer",
+                                "title": "A Schema",
+                                "examples": [
+                                    0,
+                                    2
+                                ]
+                            },
+                            "examples": [
+                                [0,
+                                    2]
+                            ]
+                        },
+                        "CheckSkill": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The CheckSkill Schema",
+                            "examples": [
+                                101
+                            ]
+                        },
+                        "UniteCheckSkill": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The UniteCheckSkill Schema",
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "DiceCheckType": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The DiceCheckType Schema",
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "ResultCheckType": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The ResultCheckType Schema",
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "DoubleWeapon": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The DoubleWeapon Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "TargetSelect": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The TargetSelect Schema",
+                            "examples": [
+                                2
+                            ]
+                        },
+                        "AttackType": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The AttackType Schema",
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "AttackCount": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The AttackCount Schema",
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "ContinuousAttackCount": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The ContinuousAttackCount Schema",
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "Damage": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The Damage Schema",
+                            "required": [
+                                "DamageType",
+                                "AttackType",
+                                "AddAttrs",
+                                "Value",
+                                "DB_Bonus",
+                                "WithSuckBlood",
+                                "SuckBloodRatio",
+                                "UseCommonEffect",
+                                "CommonEffectId",
+                                "EffectShow",
+                                "IsDirectDeath"
+                            ],
+                            "properties": {
+                                "DamageType": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The DamageType Schema",
+                                    "examples": [
+                                        0
+                                    ]
+                                },
+                                "AttackType": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The AttackType Schema",
+                                    "examples": [
+                                        0
+                                    ]
+                                },
+                                "AddAttrs": {
+                                    "type": "array",
+                                    "default": [],
+                                    "title": "The AddAttrs Schema",
+                                    "items": {},
+                                    "examples": [
+                                        []
+                                    ]
+                                },
+                                "Value": {
+                                    "type": "string",
+                                    "default": "",
+                                    "title": "The Value Schema",
+                                    "examples": [
+                                        "1D3"
+                                    ]
+                                },
+                                "DB_Bonus": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The DB_Bonus Schema",
+                                    "examples": [
+                                        1
+                                    ]
+                                },
+                                "WithSuckBlood": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The WithSuckBlood Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "SuckBloodRatio": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The SuckBloodRatio Schema",
+                                    "examples": [
+                                        0
+                                    ]
+                                },
+                                "UseCommonEffect": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The UseCommonEffect Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "CommonEffectId": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The CommonEffectId Schema",
+                                    "examples": [
+                                        1
+                                    ]
+                                },
+                                "EffectShow": {
+                                    "type": "object",
+                                    "default": {},
+                                    "title": "The EffectShow Schema",
+                                    "required": [
+                                        "Duration",
+                                        "EffectShows"
+                                    ],
+                                    "properties": {
+                                        "Duration": {
+                                            "type": "integer",
+                                            "default": 0,
+                                            "title": "The Duration Schema",
+                                            "examples": [
+                                                0
+                                            ]
+                                        },
+                                        "EffectShows": {
+                                            "type": "array",
+                                            "default": [],
+                                            "title": "The EffectShows Schema",
+                                            "items": {},
+                                            "examples": [
+                                                []
+                                            ]
+                                        }
+                                    },
+                                    "examples": [{
+                                        "Duration": 0,
+                                        "EffectShows": []
+                                    }]
+                                },
+                                "IsDirectDeath": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The IsDirectDeath Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "DamageType": 0,
+                                "AttackType": 0,
+                                "AddAttrs": [],
+                                "Value": "1D3",
+                                "DB_Bonus": 1,
+                                "WithSuckBlood": false,
+                                "SuckBloodRatio": 0,
+                                "UseCommonEffect": false,
+                                "CommonEffectId": 1,
+                                "EffectShow": {
+                                    "Duration": 0,
+                                    "EffectShows": []
+                                },
+                                "IsDirectDeath": false
+                            }]
+                        },
+                        "NeedReloadEffect": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The NeedReloadEffect Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "ReloadEffect": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The ReloadEffect Schema",
+                            "examples": [
+                                3
+                            ]
+                        },
+                        "InfoDatas": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The InfoDatas Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "EnableOverrideDesc": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The EnableOverrideDesc Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "OverrideDesc": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The OverrideDesc Schema",
+                            "required": [
+                                "TarKey",
+                                "InputText",
+                                "UseCustomParam",
+                                "CustomParams"
+                            ],
+                            "properties": {
+                                "TarKey": {
+                                    "type": "null",
+                                    "default": null,
+                                    "title": "The TarKey Schema",
+                                    "examples": [
+                                        null
+                                    ]
+                                },
+                                "InputText": {
+                                    "type": "null",
+                                    "default": null,
+                                    "title": "The InputText Schema",
+                                    "examples": [
+                                        null
+                                    ]
+                                },
+                                "UseCustomParam": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The UseCustomParam Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "CustomParams": {
+                                    "type": "array",
+                                    "default": [],
+                                    "title": "The CustomParams Schema",
+                                    "items": {},
+                                    "examples": [
+                                        []
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "TarKey": null,
+                                "InputText": null,
+                                "UseCustomParam": false,
+                                "CustomParams": []
+                            }]
+                        },
+                        "Arrts": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The Arrts Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "Skills": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The Skills Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "Def": {
+                            "type": "null",
+                            "default": null,
+                            "title": "The Def Schema",
+                            "examples": [
+                                null
+                            ]
+                        }
+                    },
+                    "examples": [{
+                        "__type": "MOD.WeaponConfigData,Assembly-CSharp",
+                        "WeaponTypes": [
+                            0,
+                            2
+                        ],
+                        "CheckSkill": 101,
+                        "UniteCheckSkill": 0,
+                        "DiceCheckType": 1,
+                        "ResultCheckType": 1,
+                        "DoubleWeapon": false,
+                        "TargetSelect": 2,
+                        "AttackType": 1,
+                        "AttackCount": 1,
+                        "ContinuousAttackCount": 1,
+                        "Damage": {
+                            "DamageType": 0,
+                            "AttackType": 0,
+                            "AddAttrs": [],
+                            "Value": "1D3",
+                            "DB_Bonus": 1,
+                            "WithSuckBlood": false,
+                            "SuckBloodRatio": 0,
+                            "UseCommonEffect": false,
+                            "CommonEffectId": 1,
+                            "EffectShow": {
+                                "Duration": 0,
+                                "EffectShows": []
+                            },
+                            "IsDirectDeath": false
+                        },
+                        "NeedReloadEffect": false,
+                        "ReloadEffect": 3,
+                        "InfoDatas": [],
+                        "EnableOverrideDesc": false,
+                        "OverrideDesc": {
+                            "TarKey": null,
+                            "InputText": null,
+                            "UseCustomParam": false,
+                            "CustomParams": []
+                        },
+                        "Arrts": [],
+                        "Skills": [],
+                        "Def": null
+                    }]
+                },
+                "ConfigData": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The ConfigData Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                },
+                "ThrowConfigData": {
+                    "type": "object",
+                    "default": {},
+                    "title": "The ThrowConfigData Schema",
+                    "required": [
+                        "CanThrowOnNoCharge",
+                        "PlayThrowAnim",
+                        "ThrowAnimtorName",
+                        "ThrowSpriteAnimName",
+                        "DiceCheckType",
+                        "ResultCheckType",
+                        "ExploreSkill",
+                        "UseTag",
+                        "LimitType",
+                        "TargetSelect",
+                        "CanSelectDeathRole",
+                        "TargetFilter",
+                        "FxPath",
+                        "PointType",
+                        "AudioClip",
+                        "UsageCheck",
+                        "ResultFuncs",
+                        "EnableOverrideDesc",
+                        "OverrideDesc"
+                    ],
+                    "properties": {
+                        "CanThrowOnNoCharge": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The CanThrowOnNoCharge Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "PlayThrowAnim": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The PlayThrowAnim Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "ThrowAnimtorName": {
+                            "type": "null",
+                            "default": null,
+                            "title": "The ThrowAnimtorName Schema",
+                            "examples": [
+                                null
+                            ]
+                        },
+                        "ThrowSpriteAnimName": {
+                            "type": "null",
+                            "default": null,
+                            "title": "The ThrowSpriteAnimName Schema",
+                            "examples": [
+                                null
+                            ]
+                        },
+                        "DiceCheckType": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The DiceCheckType Schema",
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "ResultCheckType": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The ResultCheckType Schema",
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "ExploreSkill": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The ExploreSkill Schema",
+                            "examples": [
+                                201
+                            ]
+                        },
+                        "UseTag": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The UseTag Schema",
+                            "examples": [
+                                1002
+                            ]
+                        },
+                        "LimitType": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The LimitType Schema",
+                            "examples": [
+                                1
+                            ]
+                        },
+                        "TargetSelect": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The TargetSelect Schema",
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "CanSelectDeathRole": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The CanSelectDeathRole Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "TargetFilter": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The TargetFilter Schema",
+                            "required": [
+                                "RoleFilter"
+                            ],
+                            "properties": {
+                                "RoleFilter": {
+                                    "type": "array",
+                                    "default": [],
+                                    "title": "The RoleFilter Schema",
+                                    "items": {},
+                                    "examples": [
+                                        []
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "RoleFilter": []
+                            }]
+                        },
+                        "FxPath": {
+                            "type": "null",
+                            "default": null,
+                            "title": "The FxPath Schema",
+                            "examples": [
+                                null
+                            ]
+                        },
+                        "PointType": {
+                            "type": "integer",
+                            "default": 0,
+                            "title": "The PointType Schema",
+                            "examples": [
+                                0
+                            ]
+                        },
+                        "AudioClip": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The AudioClip Schema",
+                            "required": [
+                                "AudioRes",
+                                "Volume",
+                                "FadeTime"
+                            ],
+                            "properties": {
+                                "AudioRes": {
+                                    "type": "null",
+                                    "default": null,
+                                    "title": "The AudioRes Schema",
+                                    "examples": [
+                                        null
+                                    ]
+                                },
+                                "Volume": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The Volume Schema",
+                                    "examples": [
+                                        1
+                                    ]
+                                },
+                                "FadeTime": {
+                                    "type": "integer",
+                                    "default": 0,
+                                    "title": "The FadeTime Schema",
+                                    "examples": [
+                                        1
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "AudioRes": null,
+                                "Volume": 1,
+                                "FadeTime": 1
+                            }]
+                        },
+                        "UsageCheck": {
+                            "type": "array",
+                            "default": [],
+                            "title": "The UsageCheck Schema",
+                            "items": {},
+                            "examples": [
+                                []
+                            ]
+                        },
+                        "ResultFuncs": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The ResultFuncs Schema",
+                            "required": [],
+                            "properties": {},
+                            "examples": [{}]
+                        },
+                        "EnableOverrideDesc": {
+                            "type": "boolean",
+                            "default": false,
+                            "title": "The EnableOverrideDesc Schema",
+                            "examples": [
+                                false
+                            ]
+                        },
+                        "OverrideDesc": {
+                            "type": "object",
+                            "default": {},
+                            "title": "The OverrideDesc Schema",
+                            "required": [
+                                "TarKey",
+                                "InputText",
+                                "UseCustomParam",
+                                "CustomParams"
+                            ],
+                            "properties": {
+                                "TarKey": {
+                                    "type": "null",
+                                    "default": null,
+                                    "title": "The TarKey Schema",
+                                    "examples": [
+                                        null
+                                    ]
+                                },
+                                "InputText": {
+                                    "type": "null",
+                                    "default": null,
+                                    "title": "The InputText Schema",
+                                    "examples": [
+                                        null
+                                    ]
+                                },
+                                "UseCustomParam": {
+                                    "type": "boolean",
+                                    "default": false,
+                                    "title": "The UseCustomParam Schema",
+                                    "examples": [
+                                        false
+                                    ]
+                                },
+                                "CustomParams": {
+                                    "type": "array",
+                                    "default": [],
+                                    "title": "The CustomParams Schema",
+                                    "items": {},
+                                    "examples": [
+                                        []
+                                    ]
+                                }
+                            },
+                            "examples": [{
+                                "TarKey": null,
+                                "InputText": null,
+                                "UseCustomParam": false,
+                                "CustomParams": []
+                            }]
+                        }
+                    },
+                    "examples": [{
+                        "CanThrowOnNoCharge": false,
+                        "PlayThrowAnim": false,
+                        "ThrowAnimtorName": null,
+                        "ThrowSpriteAnimName": null,
+                        "DiceCheckType": 1,
+                        "ResultCheckType": 1,
+                        "ExploreSkill": 201,
+                        "UseTag": 1002,
+                        "LimitType": 1,
+                        "TargetSelect": 0,
+                        "CanSelectDeathRole": false,
+                        "TargetFilter": {
+                            "RoleFilter": []
+                        },
+                        "FxPath": null,
+                        "PointType": 0,
+                        "AudioClip": {
+                            "AudioRes": null,
+                            "Volume": 1,
+                            "FadeTime": 1
+                        },
+                        "UsageCheck": [],
+                        "ResultFuncs": {},
+                        "EnableOverrideDesc": false,
+                        "OverrideDesc": {
+                            "TarKey": null,
+                            "InputText": null,
+                            "UseCustomParam": false,
+                            "CustomParams": []
+                        }
+                    }]
+                },
+                "IsBindCharacter": {
+                    "type": "boolean",
+                    "default": false,
+                    "title": "The IsBindCharacter Schema",
+                    "examples": [
+                        false
+                    ]
+                },
+                "EndingOpts": {
+                    "type": "array",
+                    "default": [],
+                    "title": "The EndingOpts Schema",
+                    "items": {},
+                    "examples": [
+                        []
+                    ]
+                }
+            },
+            "examples": [{
+                "IconPath": "UI/Textures/Icon/BattleSkill/icon_battleSkill_ouda",
+                "ItemId": 100,
+                "ItemName": {
+                    "TarKey": "35709f640e2ea34563be766a81b32b11",
+                    "InputText": "赤手空拳",
+                    "UseCustomParam": false,
+                    "CustomParams": []
+                },
+                "ItemDes": {
+                    "TarKey": "78d2e6d5a3d40d5ef812144a17821d0b",
+                    "InputText": "两手空空，能依赖的就只有自己的拳头了",
+                    "UseCustomParam": false,
+                    "CustomParams": []
+                },
+                "ItemEffectDes": {
+                    "TarKey": null,
+                    "InputText": null,
+                    "UseCustomParam": false,
+                    "CustomParams": []
+                },
+                "TagList": [],
+                "Price": 0,
+                "ChargingCount": 0,
+                "AutoDestruct": false,
+                "IsCantDisboard": false,
+                "Disassemble": {
+                    "Items": {
+                        "Type": 0,
+                        "Names": [],
+                        "Ids": []
+                    },
+                    "PartsCount": 0
+                },
+                "DesignTag": 0,
+                "ItemAttrValue": [],
+                "MythicalId": 0,
+                "ItemType": 2,
+                "ItemStaticAffixList": [],
+                "ItemDynamicAffixList": [],
+                "EquipmentConfigData": {
+                    "__type": "MOD.WeaponConfigData,Assembly-CSharp",
+                    "WeaponTypes": [
+                        0,
+                        2
+                    ],
+                    "CheckSkill": 101,
+                    "UniteCheckSkill": 0,
+                    "DiceCheckType": 1,
+                    "ResultCheckType": 1,
+                    "DoubleWeapon": false,
+                    "TargetSelect": 2,
+                    "AttackType": 1,
+                    "AttackCount": 1,
+                    "ContinuousAttackCount": 1,
+                    "Damage": {
+                        "DamageType": 0,
+                        "AttackType": 0,
+                        "AddAttrs": [],
+                        "Value": "1D3",
+                        "DB_Bonus": 1,
+                        "WithSuckBlood": false,
+                        "SuckBloodRatio": 0,
+                        "UseCommonEffect": false,
+                        "CommonEffectId": 1,
+                        "EffectShow": {
+                            "Duration": 0,
+                            "EffectShows": []
+                        },
+                        "IsDirectDeath": false
+                    },
+                    "NeedReloadEffect": false,
+                    "ReloadEffect": 3,
+                    "InfoDatas": [],
+                    "EnableOverrideDesc": false,
+                    "OverrideDesc": {
+                        "TarKey": null,
+                        "InputText": null,
+                        "UseCustomParam": false,
+                        "CustomParams": []
+                    },
+                    "Arrts": [],
+                    "Skills": [],
+                    "Def": null
+                },
+                "ConfigData": [],
+                "ThrowConfigData": {
+                    "CanThrowOnNoCharge": false,
+                    "PlayThrowAnim": false,
+                    "ThrowAnimtorName": null,
+                    "ThrowSpriteAnimName": null,
+                    "DiceCheckType": 1,
+                    "ResultCheckType": 1,
+                    "ExploreSkill": 201,
+                    "UseTag": 1002,
+                    "LimitType": 1,
+                    "TargetSelect": 0,
+                    "CanSelectDeathRole": false,
+                    "TargetFilter": {
+                        "RoleFilter": []
+                    },
+                    "FxPath": null,
+                    "PointType": 0,
+                    "AudioClip": {
+                        "AudioRes": null,
+                        "Volume": 1,
+                        "FadeTime": 1
+                    },
+                    "UsageCheck": [],
+                    "ResultFuncs": {},
+                    "EnableOverrideDesc": false,
+                    "OverrideDesc": {
+                        "TarKey": null,
+                        "InputText": null,
+                        "UseCustomParam": false,
+                        "CustomParams": []
+                    }
+                },
+                "IsBindCharacter": false,
+                "EndingOpts": []
+            }]
         }
     }
 }
