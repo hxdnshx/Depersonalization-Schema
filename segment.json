@@ -113,6 +113,253 @@
                 }
             ]
         },
+        "ETargetSelect": {
+            "type": "number",
+            "title": "可选取的目标列表的枚举",
+            "description": "自己/敌人等",
+            "enum": [ 0, 1, 2, 3],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Self",
+                    "body": 1
+                },{
+                    "label": "Enemy_Single",
+                    "body": 2
+                },{
+                    "label": "Enemy_All",
+                    "body": 3
+                },{
+                    "label": "Enemy_Random",
+                    "body": 4
+                },{
+                    "label": "Self_All",
+                    "body": 5
+                },{
+                    "label": "Self_Random",
+                    "body": 6
+                },{
+                    "label": "Self_Single",
+                    "body": 7
+                },{
+                    "label": "All_Single",
+                    "body": 8
+                },{
+                    "label": "All_Random",
+                    "body": 9
+                },{
+                    "label": "All",
+                    "body": 10
+                },{
+                    "label": "Fixed",
+                    "body": 11
+                }
+            ]
+        },
+        "EItemUseTag": {
+            "type": "number",
+            "title": "标记物品使用方式的枚举",
+            "description": "无/食用/使用",
+            "enum": [ 0, 1, 2],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Eat",
+                    "body": 1
+                },{
+                    "label": "Use",
+                    "body": 2
+                }
+            ]
+        },
+        "EUseLimit": {
+            "type": "number",
+            "title": "物品在哪些场合可以使用",
+            "description": "无/探索/战斗/全部",
+            "enum": [ 0, 1, 2, 3],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Battle",
+                    "body": 1
+                },{
+                    "label": "Explore",
+                    "body": 2
+                },{
+                    "label": "All",
+                    "body": 3
+                }
+            ]
+        },
+        "ETraitType": {
+            "type": "number",
+            "title": "特质所属的类别",
+            "enum": [ 0, 1, 2, 3, 4],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Encounter",
+                    "body": 1
+                },{
+                    "label": "Personality",
+                    "body": 2
+                },{
+                    "label": "Concept",
+                    "body": 3
+                },{
+                    "label": "Experience",
+                    "body": 4
+                }
+            ]
+        },
+        "ERoleType": {
+            "type": "number",
+            "title": "标记角色的类型",
+            "description": "",
+            "enum": [ 0, 1, 2, 3, 4],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "Human - 人类",
+                    "body": 0
+                },{
+                    "label": "Monster - 怪物",
+                    "body": 1
+                },{
+                    "label": "MythicalCreature - 神话生物",
+                    "body": 2
+                },{
+                    "label": "GreatOldOnes - 旧日支配者",
+                    "body": 3
+                },{
+                    "label": "Investigator - 调查员",
+                    "body": 4
+                }
+            ]
+        },
+        "ERolePointType": {
+            "type": "number",
+            "title": "==待定==",
+            "description": "",
+            "enum": [ 0, 1, 2, 3, 4, 5],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "Head",
+                    "body": 1
+                },{
+                    "label": "Center",
+                    "body": 2
+                },{
+                    "label": "Base",
+                    "body": 3
+                },{
+                    "label": "Front",
+                    "body": 4
+                },{
+                    "label": "Back",
+                    "body": 5
+                }
+            ]
+        },
+        "ERoleTag": {
+            "type": "number",
+            "title": "标记角色的类型",
+            "description": "",
+            "enum": [ 0, 1, 2, 3, 4],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "None",
+                    "body": 0
+                },{
+                    "label": "CanCommunicate",
+                    "body": 1
+                },{
+                    "label": "CannotSelect",
+                    "body": 2
+                },{
+                    "label": "BeCharmed",
+                    "body": 3
+                },{
+                    "label": "CannotUseLuck",
+                    "body": 4
+                },{
+                    "label": "MagicImmu",
+                    "body": 5
+                },{
+                    "label": "CannotSelectSp",
+                    "body": 6
+                },{
+                    "label": "IgnoreArmor",
+                    "body": 7
+                },{
+                    "label": "CanBeGrabbed",
+                    "body": 8
+                }
+            ]
+        },
+        "ERoleFilterType": {
+            "type": "number",
+            "title": "指定使用哪一种方式进行筛选",
+            "description": "-",
+            "enum": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
+            "default": 0,
+            "defaultSnippets": [
+                {
+                    "label": "RoleSideFilter",
+                    "body": 0
+                },{
+                    "label": "RoleTypeFilter",
+                    "body": 1
+                },{
+                    "label": "BuffIdFilter",
+                    "body": 2
+                },{
+                    "label": "BuffLayerFilter",
+                    "body": 3
+                },{
+                    "label": "TraitIdFilter",
+                    "body": 4
+                },{
+                    "label": "TraitTypeFilter",
+                    "body": 5
+                },{
+                    "label": "LifeStateFilter",
+                    "body": 6
+                },{
+                    "label": "RoleTagFilter",
+                    "body": 7
+                },{
+                    "label": "RoleCanActionFilter",
+                    "body": 8
+                },{
+                    "label": "RoleHaveItemFilter",
+                    "body": 9
+                },{
+                    "label": "RoleCanEnterTeam",
+                    "body": 10
+                },{
+                    "label": "RoleCanFirstAid",
+                    "body": 11
+                }
+            ]
+        },
         "ERoleSystemAttribute": {
             "type": "number",
             "title": "角色系统能力类别",
@@ -2561,6 +2808,267 @@
                 }
             }
         },
+        "RoleFilterData": {
+            "type": "object",
+            "title": "角色筛选信息",
+            "required": [
+                "FilterType"
+            ],
+            "properties": {
+                "FilterType": {
+                    "$ref": "#/definitions/ERoleFilterType"
+                },
+                "RoleSide": {
+                    "type": "integer",
+                    "title": "标记己方还是敌方",
+                    "description": "0 友方， 1 敌方",
+                    "examples": [
+                        1,
+                        0
+                    ]
+                },
+                "RoleType": {
+                    "$ref": "#/definitions/ERoleType"
+                },
+                "RoleTypes": {
+                    "type": "array",
+                    "title": "角色类型的列表，如果需要筛选多种角色类型",
+                    "items": {
+                        "$ref": "#/definitions/ERoleType"
+                    },
+                    "examples": [
+                        [],
+                        []
+                    ]
+                },
+                "BuffId": {
+                    "type": "integer",
+                    "title": "在使用BuffIdFilter时的buff编号",
+                    "examples": [
+                        0
+                    ]
+                },
+                "CompareType": {
+                    "$ref": "#/definitions/ECompareType",
+                    "title": "比较方式（大于小于等于）"
+                },
+                "CompareValue": {
+                    "type": "integer",
+                    "title": "进行对比的值（如果进行比较）",
+                    "examples": [
+                        0
+                    ]
+                },
+                "TraitId": {
+                    "type": "integer",
+                    "title": "在根据特质进行筛选时的特质Id",
+                    "examples": [
+                        0
+                    ]
+                },
+                "TraitType": {
+                    "$ref": "#/definitions/ETraitType"
+                },
+                "LifeState": {
+                    "$ref": "#/definitions/ELifeState"
+                },
+                "RoleTag": {
+                    "$ref": "#/definitions/ERoleTag"
+                },
+                "CanRemoveBuffs": {
+                    "type": "array",
+                    "title": "是否持有指定的的Buff（如果持有才能被删除）",
+                    "items": {
+                        "type": "integer"
+                    },
+                    "examples": [
+                        []
+                    ]
+                },
+                "Not": {
+                    "type": "boolean",
+                    "title": "是否将检查条件逆转（如原本是持有指定Buff，变为不持有指定Buff）",
+                    "examples": [
+                        false
+                    ]
+                }
+            },
+            "examples": [{
+                "FilterType": 0,
+                "RoleSide": 1,
+                "RoleType": 0,
+                "RoleTypes": [],
+                "BuffId": 0,
+                "CompareType": 0,
+                "CompareValue": 0,
+                "TraitId": 0,
+                "TraitType": 0,
+                "LifeState": 0,
+                "RoleTag": 0,
+                "CanRemoveBuffs": [],
+                "Not": false
+            }]
+        },
+        "ItemInfoData": {
+            "type": "object",
+            "default": {},
+            "title": "对物品的行为进行描述",
+            "additionalProperties": true,
+            "required": [
+            ],
+            "properties": {
+                "ExploreSkill": {
+                    "$ref": "#/definitions/EExploreSkill"
+                },
+                "UseTag": {
+                    "$ref": "#/definitions/EItemUseTag"
+                },
+                "LimitType": {
+                    "$ref": "#/definitions/EUseLimit"
+                },
+                "TargetSelect": {
+                    "$ref": "#/definitions/ETargetSelect"
+                },
+                "CanSelectDeathRole": {
+                    "type": "boolean",
+                    "default": "false",
+                    "title": "是否可以选择死亡的角色"
+                },
+                "TargetFilter": {
+                    "type": "object",
+                    "default": "",
+                    "title": "用于对目标进行筛选的条件集合",
+                    "additionalProperties": true,
+                    "required": [
+                    ],
+                    "properties": {
+                        "RoleFilter": {
+                            "type": "array",
+                            "default": [],
+                            "title": "筛选目标角色的方式列表",
+                            "items": {
+                                "$ref": "#/definitions/RoleFilterData"
+                            }
+                        }
+                    }
+                },
+                "FxPath": {
+                    "type": "string",
+                    "default": "",
+                    "title": "特效路径"
+                },
+                "PointType": {
+                    "$ref": "#/definitions/ERolePointType"
+                },
+                "AudioClip": {
+                    "$ref": "#/definitions/AudioClipData"
+                },
+                "UsageCheck": {
+                    "type": "array",
+                    "default": [],
+                    "title": "筛选目标角色的方式列表",
+                    "items": {
+                        "$ref": "#/definitions/BaseItemCheck"
+                    }
+                },
+                "ResultFuncs": {
+                    "title": "这个道具对应的行为（由于这部分ES3的实现不符合json标准，请在每一个大括号之前手动加上2:(即EDiceResult对应的值)",
+                    "type": "array",
+                    "default": [],
+                    "items": {
+                        "$ref": "#/definitions/ItemBaseOption"
+                    }
+                }
+            }
+        },
+        "BaseItemCheck": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "__type": {
+                    "type": "string",
+                    "description": "对应的具体类型，不同的类型包含不同的参数，以及不同的功能",
+                    "examples": [
+                        "ItemEvent.BuffCheck,Assembly-CSharp",
+                        "ItemEvent.ClueNumCheck,Assembly-CSharp",
+                        "ItemEvent.EnemyDeathCheck,Assembly-CSharp",
+                        "ItemEvent.ExploreSucCheck,Assembly-CSharp",
+                        "ItemEvent.ExtraAttackCountCheck,Assembly-CSharp",
+                        "ItemEvent.ItemCharingCheck,Assembly-CSharp",
+                        "ItemEvent.ItemRecordCheck,Assembly-CSharp",
+                        "ItemEvent.MainWeaponCheck,Assembly-CSharp",
+                        "ItemEvent.RoleAttrCheck,Assembly-CSharp",
+                        "ItemEvent.TargetCountCheck,Assembly-CSharp",
+                        "ItemEvent.UseBattleSkillCheck,Assembly-CSharp",
+                        "ItemEvent.UseMagicCheck,Assembly-CSharp"
+                    ]
+                },
+                "_baseKey": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "内部用于标记同一个对象的标记，一般而言同一个文本可以设为相同值。"
+                }
+            }
+        },
+        "ItemBaseOption": {
+            "type": "object",
+            "additionalProperties": true,
+            "properties": {
+                "__type": {
+                    "type": "string",
+                    "description": "对应的具体类型，不同的类型包含不同的参数，以及不同的功能",
+                    "examples": [
+                        "MOD.Item_AddBuffOption,Assembly-CSharp",
+                        "MOD.Item_AddItemExtraDamage,Assembly-CSharp",
+                        "MOD.Item_AddItemOption,Assembly-CSharp",
+                        "MOD.Item_AddMagicOption,Assembly-CSharp",
+                        "MOD.Item_AddTraitOption,Assembly-CSharp",
+                        "MOD.Item_Bringback,Assembly-CSharp",
+                        "MOD.Item_ChangeAttackCount,Assembly-CSharp",
+                        "MOD.Item_ChangeAttackRewardDiceCountOption,Assembly-CSharp",
+                        "MOD.Item_ChangeBattleDiceResult,Assembly-CSharp",
+                        "MOD.Item_ChangeExploreDiceResult,Assembly-CSharp",
+                        "MOD.Item_ChangeFixedDamageTypeOption,Assembly-CSharp",
+                        "MOD.Item_ChangeLifeState,Assembly-CSharp",
+                        "MOD.Item_ChangeNoConsumeLuckCount,Assembly-CSharp",
+                        "MOD.Item_ChargingOption,Assembly-CSharp",
+                        "MOD.Item_DamageOption,Assembly-CSharp",
+                        "MOD.Item_DestoryItemOption,Assembly-CSharp",
+                        "MOD.Item_EnableExtraStrick,Assembly-CSharp",
+                        "MOD.Item_ExtraAttrOption,Assembly-CSharp",
+                        "MOD.Item_GrowUpCheck,Assembly-CSharp",
+                        "MOD.Item_ImmuneBuffOption,Assembly-CSharp",
+                        "MOD.Item_ImmuneDamageOption,Assembly-CSharp",
+                        "MOD.Item_PlayEffectShowOption,Assembly-CSharp",
+                        "MOD.Item_PursueAttack,Assembly-CSharp",
+                        "MOD.Item_RandomAddMagicOption,Assembly-CSharp",
+                        "MOD.Item_RandomEnemyBuff,Assembly-CSharp",
+                        "MOD.Item_RemoveBuffOption,Assembly-CSharp",
+                        "MOD.Item_RemoveRecordOption,Assembly-CSharp",
+                        "MOD.Item_RoleAttrOption,Assembly-CSharp",
+                        "MOD.Item_SaveRecordOption,Assembly-CSharp",
+                        "MOD.Item_ToGameFuntionOption,Assembly-CSharp"
+                    ]
+                },
+                "_baseKey": {
+                    "anyOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ],
+                    "description": "内部用于标记同一个对象的标记，一般而言同一个文本可以设为相同值。"
+                }
+            }
+        },
         "ItemDataImpl": {
             "type": "object",
             "default": {},
@@ -3169,8 +3677,10 @@
                 "ConfigData": {
                     "type": "array",
                     "default": [],
-                    "title": "The ConfigData Schema",
-                    "items": {},
+                    "title": "这个物品使用的配置项",
+                    "items": {
+                        "$ref": "#/definitions/ItemInfoData"
+                    },
                     "examples": [
                         []
                     ]
