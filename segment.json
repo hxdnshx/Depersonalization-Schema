@@ -1633,7 +1633,7 @@
                     "description": "内部用于标记同一个对象的标记，一般而言同一个文本可以设为相同值。"
                 }
             },
-            "anyOf": [
+            "allOf": [
                 {
                     "if": {
                         "properties": { "__type": { "const": "InterludeEvent.JumpToTarChooseOption,Assembly-CSharp" } }
@@ -1884,7 +1884,7 @@
                                 "title": "技能类别",
                                 "description": "当检定技能时，指定技能的类别"
                             },
-                            "OptionSucList": {
+                            "SucOpt": {
                                 "type": "array",
                                 "default": [],
                                 "title": "成功时执行的操作列表",
@@ -1892,7 +1892,7 @@
                                     "$ref": "#/definitions/InterludeEvent"
                                 }
                             },
-                            "OptionFailList": {
+                            "FailOpt": {
                                 "type": "array",
                                 "default": [],
                                 "title": "失败时执行的操作列表",
@@ -2605,7 +2605,7 @@
                     "description": "内部用于标记同一个对象的标记，一般而言同一个文本可以设为相同值。"
                 }
             },
-            "anyOf": [
+            "allOf": [
                 {
                     "if": {
                         "properties": { "__type": { "const": "InterludeEvent.AttrCheck,Assembly-CSharp" } }
